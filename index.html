@@ -142,6 +142,168 @@
             box-shadow: 0 6px 20px rgba(255, 117, 140, 0.6);
         }
 
+        /* STYLES CHO MINIGAMES */
+        .section-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            color: #ff85a2;
+            margin: 40px 0 20px;
+            text-shadow: 0 0 10px rgba(255, 133, 162, 0.5);
+        }
+
+        .game-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        /* 1. Love Button Game */
+        .love-buttons-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .love-btn {
+            background: linear-gradient(135deg, #ff4d6d 0%, #ff758c 100%);
+            border: none;
+            color: white;
+            padding: 15px 25px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(255, 77, 109, 0.4);
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .love-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(255, 77, 109, 0.6);
+        }
+
+        .love-btn:active {
+            transform: scale(0.95);
+        }
+
+        .love-counter-display {
+            margin-top: 25px;
+            font-size: 1.2rem;
+            color: #f1f1f1;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .love-count-badge {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px 20px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 133, 162, 0.3);
+        }
+
+        .love-count-badge span {
+            color: #ff85a2;
+            font-weight: 700;
+            font-size: 1.4rem;
+        }
+
+        /* Floating Hearts Animation */
+        .floating-heart {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            font-size: 24px;
+            animation: floatUp 2s ease-out forwards;
+        }
+
+        @keyframes floatUp {
+            0% {
+                opacity: 1;
+                transform: translate(-50%, 0) scale(0.8) rotate(0deg);
+            }
+            50% {
+                transform: translate(calc(-50% + var(--randX)), -100px) scale(1.3) rotate(var(--randRot));
+            }
+            100% {
+                opacity: 0;
+                transform: translate(calc(-50% + var(--randX)), -220px) scale(1) rotate(var(--randRot));
+            }
+        }
+
+        /* 2. Wheel of Dates Game */
+        .wheel-wrapper {
+            position: relative;
+            width: 320px;
+            height: 320px;
+            margin: 20px auto;
+        }
+
+        .wheel-pointer {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-top: 25px solid #ff4d6d;
+            z-index: 10;
+            filter: drop-shadow(0 2px 5px rgba(0,0,0,0.5));
+        }
+
+        #wheel-canvas {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(255, 133, 162, 0.4);
+            transition: transform 4s cubic-bezier(0.15, 0.99, 0.18, 0.99);
+        }
+
+        .spin-btn {
+            background: linear-gradient(135deg, #ff758c 0%, #ff85a2 100%);
+            border: none;
+            color: white;
+            padding: 12px 35px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 30px;
+            cursor: pointer;
+            margin-top: 15px;
+            box-shadow: 0 4px 15px rgba(255, 117, 140, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .spin-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 117, 140, 0.6);
+        }
+
+        .spin-btn:disabled {
+            background: #555;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .wheel-result {
+            margin-top: 20px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #ff85a2;
+            min-height: 40px;
+        }
+
         /* Bộ chọn Tháng */
         .month-selector-title {
             font-size: 1.4rem;
@@ -237,9 +399,39 @@
         <div class="music-player">
             <button class="music-btn" id="play-btn" onclick="toggleMusic()">🎵 Phát nhạc: Phép màu</button>
             <audio id="bg-music" loop>
-                <!-- Link nhạc demo Phép Màu -->
                 <source src="https://raw.githubusercontent.com/hailinh-hoangvu/our-1st-anniversary/main/phep-mau.mp3" type="audio/mpeg">
             </audio>
+        </div>
+
+        <!-- MINIGAME 1: Nút bấm gửi Ôm và Nụ hôn -->
+        <div class="game-card">
+            <h2 class="section-title" style="margin-top:0;">Gửi Yêu Thương</h2>
+            <div class="love-buttons-container">
+                <button class="love-btn" onclick="sendLove('hug', event)">
+                    🤗 Gửi cái ôm cho người kia
+                </button>
+                <button class="love-btn" onclick="sendLove('kiss', event)">
+                    💋 Gửi nụ hôn cho người kia
+                </button>
+            </div>
+            <div class="love-counter-display">
+                <div class="love-count-badge">Đã gửi: <span id="hug-count">0</span> cái ôm 🤗</div>
+                <div class="love-count-badge">Đã gửi: <span id="kiss-count">0</span> nụ hôn 💋</div>
+            </div>
+        </div>
+
+        <!-- MINIGAME 2: Vòng quay Hẹn Hò -->
+        <div class="game-card">
+            <h2 class="section-title" style="margin-top:0;">Vòng Quay Hẹn Hò</h2>
+            <p style="color: #bbb; font-size: 0.95rem;">Hôm nay ăn gì? Bấm để tìm câu trả lời nhé!</p>
+            
+            <div class="wheel-wrapper">
+                <div class="wheel-pointer"></div>
+                <canvas id="wheel-canvas" width="320" height="320"></canvas>
+            </div>
+            
+            <button class="spin-btn" id="spin-btn" onclick="spinWheel()">Quay ngay! 🎯</button>
+            <div class="wheel-result" id="wheel-result"></div>
         </div>
 
         <!-- Chọn Tháng Kỷ Niệm -->
@@ -309,6 +501,153 @@
                 music.pause();
                 playBtn.innerText = "🎵 Phát nhạc: Phép màu";
             }
+        }
+
+        // --- CODE MINIGAME 1: LOVE BUTTON ---
+        let hugCount = parseInt(localStorage.getItem('hugCount') || '0');
+        let kissCount = parseInt(localStorage.getItem('kissCount') || '0');
+
+        document.getElementById('hug-count').innerText = hugCount;
+        document.getElementById('kiss-count').innerText = kissCount;
+
+        // Âm thanh dễ thương không cần file MP3 bên ngoài (dùng Web Audio API)
+        function playCuteSound(type) {
+            try {
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                
+                osc.type = 'sine';
+                if (type === 'hug') {
+                    osc.frequency.setValueAtTime(400, audioCtx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(800, audioCtx.currentTime + 0.15);
+                } else {
+                    osc.frequency.setValueAtTime(600, audioCtx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime + 0.12);
+                }
+                
+                gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.15);
+                
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.15);
+            } catch (e) {
+                // Tự động bỏ qua nếu trình duyệt chặn tự phát âm thanh
+            }
+        }
+
+        function sendLove(type, event) {
+            playCuteSound(type);
+
+            if (type === 'hug') {
+                hugCount++;
+                localStorage.setItem('hugCount', hugCount);
+                document.getElementById('hug-count').innerText = hugCount;
+            } else {
+                kissCount++;
+                localStorage.setItem('kissCount', kissCount);
+                document.getElementById('kiss-count').innerText = kissCount;
+            }
+
+            // Tạo hiệu ứng bong bóng bay lên từ vị trí nhấn chuột
+            const icons = type === 'hug' ? ['🤗', '💖', '🫂', '✨'] : ['💋', '😘', '❤️', '💕'];
+            const x = event.clientX;
+            const y = event.clientY;
+
+            for (let i = 0; i < 8; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'floating-heart';
+                heart.innerText = icons[Math.floor(Math.random() * icons.length)];
+                
+                heart.style.left = `${x}px`;
+                heart.style.top = `${y}px`;
+                
+                const randX = (Math.random() - 0.5) * 160 + 'px';
+                const randRot = (Math.random() - 0.5) * 60 + 'deg';
+                heart.style.setProperty('--randX', randX);
+                heart.style.setProperty('--randRot', randRot);
+
+                document.body.appendChild(heart);
+
+                setTimeout(() => {
+                    heart.remove();
+                }, 2000);
+            }
+        }
+
+        // --- CODE MINIGAME 2: VÒNG QUAY HẸN HÒ ---
+        const options = ['Ăn đồ Thái 🍲', 'Ăn đồ Nhật 🍣', 'Ăn Pizza 🍕', 'Ăn gà rán 🍗', 'Ăn đồ Việt 🇻🇳', 'Ăn Đồ Nướng 🥩', 'Lẩu Tứ Xuyên 🍲', 'Uống Trà Sữa 🧋'];
+        const colors = ['#ff4d6d', '#ff758c', '#ff85a2', '#ffb3c1', '#ff4d6d', '#ff758c', '#ff85a2', '#ffb3c1'];
+        
+        const canvas = document.getElementById('wheel-canvas');
+        const ctx = canvas.getContext('2d');
+        const numOptions = options.length;
+        const arcSize = (2 * Math.PI) / numOptions;
+        let currentRotation = 0;
+        let isSpinning = false;
+
+        function drawWheel() {
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            const radius = canvas.width / 2;
+
+            for (let i = 0; i < numOptions; i++) {
+                const angle = i * arcSize;
+                ctx.beginPath();
+                ctx.fillStyle = colors[i % colors.length];
+                ctx.moveTo(centerX, centerY);
+                ctx.arc(centerX, centerY, radius, angle, angle + arcSize);
+                ctx.lineTo(centerX, centerY);
+                ctx.fill();
+
+                // Vẽ Chữ
+                ctx.save();
+                ctx.translate(centerX, centerY);
+                ctx.rotate(angle + arcSize / 2);
+                ctx.textAlign = "right";
+                ctx.fillStyle = "#ffffff";
+                ctx.font = "bold 13px Montserrat";
+                ctx.shadowColor = "rgba(0,0,0,0.5)";
+                ctx.shadowBlur = 4;
+                ctx.fillText(options[i], radius - 15, 5);
+                ctx.restore();
+            }
+        }
+
+        drawWheel();
+
+        function spinWheel() {
+            if (isSpinning) return;
+            isSpinning = true;
+            
+            const spinBtn = document.getElementById('spin-btn');
+            const resultDiv = document.getElementById('wheel-result');
+            spinBtn.disabled = true;
+            resultDiv.innerText = "Đang chọn món ngon cho 2 đứa...";
+
+            // Quay ngẫu nhiên từ 5 đến 10 vòng
+            const extraRounds = 5 + Math.floor(Math.random() * 5);
+            const randomDegrees = Math.floor(Math.random() * 360);
+            const totalDegrees = extraRounds * 360 + randomDegrees;
+
+            currentRotation += totalDegrees;
+            canvas.style.transform = `rotate(${currentRotation}deg)`;
+
+            setTimeout(() => {
+                isSpinning = false;
+                spinBtn.disabled = false;
+
+                // Tính toán phần thưởng dừng ở mũi tên đỉnh trên cùng (270 độ)
+                const actualDegrees = currentRotation % 360;
+                const effectiveAngle = (360 - (actualDegrees % 360) + 270) % 360;
+                const selectedIndex = Math.floor(effectiveAngle / (360 / numOptions));
+                
+                resultDiv.innerHTML = `🎉 Kế hoạch hôm nay: <strong>${options[selectedIndex]}</strong>! ❤️`;
+                playCuteSound('kiss');
+            }, 4000);
         }
 
         // 4. Dữ liệu Ảnh theo từng Tháng 
