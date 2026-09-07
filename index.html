@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoàng Vũ Hải Linh & Nguyễn Minh Tân - 1 Year Anniversary</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #05050d;
+            color: #ffffff;
+            font-family: 'Montserrat', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Background Sao Lấp Lánh */
+        #stars-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            background-color: #fff;
+            border-radius: 50%;
+            animation: twinkle var(--duration) infinite ease-in-out;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); box-shadow: 0 0 10px #fff, 0 0 20px #ff79c6; }
+        }
+
+        /* Container chính */
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        h1.title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.2rem;
+            color: #ff85a2;
+            margin-bottom: 10px;
+            text-shadow: 0 0 15px rgba(255, 133, 162, 0.6);
+        }
+
+        .names {
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            color: #f1f1f1;
+            margin-bottom: 25px;
+        }
+
+        .names span {
+            color: #ff4d6d;
+        }
+
+        /* Khung đếm ngày */
+        .counter-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .counter-card h2 {
+            font-size: 1.2rem;
+            font-weight: 300;
+            color: #ddd;
+            margin-bottom: 20px;
+        }
+
+        .timer {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .time-box {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 15px 20px;
+            border-radius: 12px;
+            min-width: 100px;
+            border: 1px solid rgba(255, 133, 162, 0.2);
+        }
+
+        .time-box .number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #ff85a2;
+            display: block;
+        }
+
+        .time-box .label {
+            font-size: 0.85rem;
+            color: #bbb;
+            text-transform: uppercase;
+        }
+
+        /* Nhạc nền */
+        .music-player {
+            margin: 20px 0 40px;
+        }
+
+        .music-btn {
+            background: linear-gradient(135deg, #ff758c 0%, #ff7eb3 100%);
+            border: none;
+            color: white;
+            padding: 12px 28px;
+            font-size: 1rem;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 117, 140, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .music-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 117, 140, 0.6);
+        }
+
+        /* Bộ chọn Tháng */
+        .month-selector-title {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            color: #f1f1f1;
+        }
+
+        .month-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .month-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .month-btn.active, .month-btn:hover {
+            background: #ff4d6d;
+            border-color: #ff4d6d;
+            box-shadow: 0 0 10px rgba(255, 77, 109, 0.5);
+        }
+
+        /* Lưới hiển thị ảnh */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+            padding: 10px;
+        }
+
+        .gallery-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.03);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .gallery-item p {
+            padding: 10px;
+            font-size: 0.85rem;
+            color: #ccc;
+        }
+
+        footer {
+            margin-top: 50px;
+            font-size: 0.85rem;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="stars-container"></div>
+
+    <div class="container">
+        <h1 class="title">Our Love Journey</h1>
+        <div class="names">Hoàng Vũ Hải Linh <span>♥</span> Nguyễn Minh Tân</div>
+
+        <!-- Bộ Đếm Ngày -->
+        <div class="counter-card">
+            <h2>Chúng mình đã bên nhau được</h2>
+            <div class="timer">
+                <div class="time-box"><span class="number" id="days">0</span><span class="label">Ngày</span></div>
+                <div class="time-box"><span class="number" id="hours">0</span><span class="label">Giờ</span></div>
+                <div class="time-box"><span class="number" id="minutes">0</span><span class="label">Phút</span></div>
+                <div class="time-box"><span class="number" id="seconds">0</span><span class="label">Giây</span></div>
+            </div>
+        </div>
+
+        <!-- Nhạc nền "Phép Màu" -->
+        <div class="music-player">
+            <button class="music-btn" id="play-btn" onclick="toggleMusic()">🎵 Phát nhạc: Phép màu</button>
+            <audio id="bg-music" loop>
+                <!-- Link nhạc demo Phép Màu -->
+                <source src="https://raw.githubusercontent.com/hailinh-hoangvu/our-1st-anniversary/main/phep-mau.mp3" type="audio/mpeg">
+            </audio>
+        </div>
+
+        <!-- Chọn Tháng Kỷ Niệm -->
+        <div class="month-section">
+            <div class="month-selector-title">📸 Album Kỷ Niệm Theo Tháng</div>
+            <div class="month-buttons" id="month-buttons">
+                <!-- Các nút từ 09/2025 -> 09/2026 sẽ được tạo bằng Javascript -->
+            </div>
+
+            <!-- Khung Ảnh -->
+            <div class="gallery" id="gallery-container">
+                <!-- Ảnh sẽ thay đổi khi bấm chọn tháng -->
+            </div>
+        </div>
+
+        <footer>
+            Kỷ niệm 1 năm - 09/09/2025 ~ 09/09/2026 ♥
+        </footer>
+    </div>
+
+    <script>
+        // 1. Tạo hiệu ứng Sao Lấp Lánh
+        const starsContainer = document.getElementById('stars-container');
+        for (let i = 0; i < 120; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            const size = Math.random() * 3 + 1;
+            star.style.width = `${size}px`;
+            star.style.height = `${size}px`;
+            star.style.left = `${Math.random() * 100}%`;
+            star.style.top = `${Math.random() * 100}%`;
+            star.style.setProperty('--duration', `${Math.random() * 3 + 1.5}s`);
+            starsContainer.appendChild(star);
+        }
+
+        // 2. Tính ngày yêu (Mốc: 09/09/2025)
+        const startDate = new Date('2025-09-09T00:00:00');
+
+        function updateCounter() {
+            const now = new Date();
+            const diff = now - startDate;
+
+            if (diff > 0) {
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+                const minutes = Math.floor((diff / 1000 / 60) % 60);
+                const seconds = Math.floor((diff / 1000) % 60);
+
+                document.getElementById('days').innerText = days;
+                document.getElementById('hours').innerText = hours;
+                document.getElementById('minutes').innerText = minutes;
+                document.getElementById('seconds').innerText = seconds;
+            }
+        }
+        setInterval(updateCounter, 1000);
+        updateCounter();
+
+        // 3. Xử lý Phát/Dừng Nhạc
+        const music = document.getElementById('bg-music');
+        const playBtn = document.getElementById('play-btn');
+
+        function toggleMusic() {
+            if (music.paused) {
+                music.play();
+                playBtn.innerText = "⏸ Tạm dừng nhạc";
+            } else {
+                music.pause();
+                playBtn.innerText = "🎵 Phát nhạc: Phép màu";
+            }
+        }
+
+        // 4. Dữ liệu Ảnh theo từng Tháng (Bạn chỉ cần chèn link/tên file ảnh thực tế của bạn vào đây)
+        const monthsData = [
+            { id: '09-2025', label: 'Tháng 09/2025', images: [
+                { url: 'https://picsum.photos/400/400?random=1', note: 'Ngày đầu tiên bên nhau' },
+                { url: 'https://picsum.photos/400/400?random=2', note: 'Buổi hẹn hò đầu tiên' }
+            ]},
+            { id: '10-2025', label: 'Tháng 10/2025', images: [
+                { url: 'https://picsum.photos/400/400?random=3', note: 'Cùng đi xem phim' }
+            ]},
+            { id: '11-2025', label: 'Tháng 11/2025', images: [
+                { url: 'https://picsum.photos/400/400?random=4', note: 'Gió mùa về' }
+            ]},
+            { id: '12-2025', label: 'Tháng 12/2025', images: [
+                { url: 'https://picsum.photos/400/400?random=5', note: 'Giáng sinh ấm áp' }
+            ]},
+            { id: '01-2026', label: 'Tháng 01/2026', images: [
+                { url: 'https://picsum.photos/400/400?random=6', note: 'Đón năm mới cùng nhau' }
+            ]},
+            { id: '02-2026', label: 'Tháng 02/2026', images: [
+                { url: 'https://picsum.photos/400/400?random=7', note: 'Valentine ngọt ngào' }
+            ]},
+            { id: '03-2026', label: 'Tháng 03/2026', images: [
+                { url: 'https://picsum.photos/400/400?random=8', note: 'Chuyến đi xa cùng nhau' }
+            ]},
+            { id: '04-2026', label: 'Tháng 04/2026', images: [
+                { url: 'https://picsum.photos/400/400?random=9', note: 'Những ngày nắng đẹp' }
+            ]},
+            { id: '05-2026', label: 'Tháng 05/2026', images: [
+                { url: 'https://picsum.photos/400/400?random=10', note: 'Kỷ niệm mùa hè' }
+            ]},
+            { id: '06-2026', label: 'Tháng 06/2026', images: [
+                { url: 'https://picsum.photos/400/400?random=11', note: 'Chụp ảnh cùng nhau' }
+            ]},
+            { id: '07-2026', label: 'Tháng 07/2026', images: [
+                { url: 'https://picsum.photos/400/400?random=12', note: 'Chiều hoàng hôn' }
+            ]},
+            { id: '08-2026', label: 'Tháng 08/2026', images: [
+                { url: 'https://picsum.photos/400/400?random=13', note: 'Chuẩn bị kỷ niệm 1 năm' }
+            ]},
+            { id: '09-2026', label: 'Tháng 09/2026', images: [
+                { url: 'https://picsum.photos/400/400?random=14', note: 'Tròn 1 năm yêu nhau! ♥' }
+            ]}
+        ];
+
+        // Hiển thị nút bấm chọn tháng và load danh sách ảnh
+        const btnContainer = document.getElementById('month-buttons');
+        const galleryContainer = document.getElementById('gallery-container');
+
+        monthsData.forEach((m, index) => {
+            const btn = document.createElement('button');
+            btn.className = `month-btn ${index === 0 ? 'active' : ''}`;
+            btn.innerText = m.label;
+            btn.onclick = () => {
+                document.querySelectorAll('.month-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                renderGallery(m.images);
+            };
+            btnContainer.appendChild(btn);
+        });
+
+        function renderGallery(images) {
+            galleryContainer.innerHTML = '';
+            images.forEach(img => {
+                const item = document.createElement('div');
+                item.className = 'gallery-item';
+                item.innerHTML = `<img src="${img.url}" alt="Memory"><p>${img.note}</p>`;
+                galleryContainer.appendChild(item);
+            });
+        }
+
+        // Khởi tạo hiển thị tháng đầu tiên (09/2025)
+        renderGallery(monthsData[0].images);
+    </script>
+</body>
+</html>
