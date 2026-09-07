@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hoàng Vũ Hải Linh & Nguyễn Minh Tân - 1 Year Anniversary</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -304,6 +304,202 @@
             min-height: 40px;
         }
 
+        /* 3. TRÒ CHƠI HỘP QUÀ BẤT NGỜ (LOVE COUPONS) */
+        .gift-boxes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .gift-box-item {
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 133, 162, 0.3);
+            border-radius: 16px;
+            padding: 20px 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gift-box-item:hover {
+            transform: translateY(-5px) scale(1.03);
+            background: rgba(255, 133, 162, 0.15);
+            box-shadow: 0 0 20px rgba(255, 133, 162, 0.4);
+        }
+
+        .gift-box-item .box-icon {
+            font-size: 2.8rem;
+            display: block;
+            margin-bottom: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .gift-box-item:hover .box-icon {
+            transform: scale(1.15) rotate(5deg);
+        }
+
+        .gift-box-item .box-num {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #ffb3c1;
+        }
+
+        .gift-box-item.opened {
+            opacity: 0.6;
+            background: rgba(255, 255, 255, 0.02);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* MODAL MỞ THẺ ĐẶC QUYỀN */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 10000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .coupon-card {
+            background: linear-gradient(135deg, #1e112a 0%, #3a1538 100%);
+            border: 2px solid #ff758c;
+            border-radius: 24px;
+            padding: 30px 25px;
+            max-width: 420px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 0 40px rgba(255, 117, 140, 0.6);
+            transform: scale(0.7);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+
+        .modal-overlay.active .coupon-card {
+            transform: scale(1);
+        }
+
+        .coupon-tag {
+            background: #ff4d6d;
+            color: white;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 6px 16px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .coupon-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        .coupon-desc {
+            font-size: 0.95rem;
+            color: #ddd;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .close-modal-btn {
+            background: linear-gradient(135deg, #ff4d6d 0%, #ff758c 100%);
+            border: none;
+            color: white;
+            padding: 12px 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4);
+            transition: all 0.2s;
+        }
+
+        .close-modal-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .view-coupons-btn {
+            margin-top: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 133, 162, 0.4);
+            color: #ffb3c1;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .view-coupons-btn:hover {
+            background: rgba(255, 133, 162, 0.2);
+            color: #fff;
+        }
+
+        /* 4. TRÒ CHƠI BẮN TIM TÍCH ĐIỂM (LOVE CATCHER) */
+        .catcher-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            height: 400px;
+            margin: 20px auto;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 2px solid rgba(255, 133, 162, 0.3);
+            background: radial-gradient(circle, rgba(20, 10, 35, 0.9) 0%, rgba(5, 5, 13, 0.95) 100%);
+        }
+
+        #catcher-canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .catcher-stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 0 10px;
+        }
+
+        .score-board {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #ff85a2;
+        }
+
+        .catcher-controls-btn {
+            background: linear-gradient(135deg, #ff4d6d 0%, #ff758c 100%);
+            border: none;
+            color: white;
+            padding: 10px 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 25px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4);
+        }
+
         /* Bộ chọn Tháng */
         .month-selector-title {
             font-size: 1.4rem;
@@ -434,6 +630,33 @@
             <div class="wheel-result" id="wheel-result"></div>
         </div>
 
+        <!-- MINIGAME 3: Hộp Quà Bất Ngờ (Love Coupons) -->
+        <div class="game-card">
+            <h2 class="section-title" style="margin-top:0;">🎁 Hộp Quà Bất Ngờ</h2>
+            <p style="color: #bbb; font-size: 0.95rem;">Mở mỗi hộp quà để nhận Thẻ Đặc Quyền (Love Coupon) dành riêng cho bạn!</p>
+            
+            <div class="gift-boxes-grid" id="gift-boxes-grid">
+                <!-- 16 Hộp quà sẽ được tạo bằng JS -->
+            </div>
+            <button class="view-coupons-btn" onclick="showOpenedCouponsModal()">🎟️ Xem danh sách Ví Thẻ Đã Mở</button>
+        </div>
+
+        <!-- MINIGAME 4: Bắn Tim Tích Điểm Đổi Quà (Love Catcher) -->
+        <div class="game-card">
+            <h2 class="section-title" style="margin-top:0;">🎮 Bắn Tim Tích Điểm Đổi Quà</h2>
+            <p style="color: #bbb; font-size: 0.95rem; margin-bottom: 15px;">Di chuyển giỏ (Nick & Judy) để hứng tim & items rơi xuống. Đạt <strong>100 điểm</strong> sẽ nhận 1 Thẻ Đặc Quyền!</p>
+            
+            <div class="catcher-stats">
+                <div class="score-board">Điểm: <span id="catcher-score">0</span> / 100</div>
+                <button class="catcher-controls-btn" id="start-catcher-btn" onclick="toggleCatcherGame()">Bắt Đầu Chơi 🚀</button>
+            </div>
+
+            <div class="catcher-container">
+                <canvas id="catcher-canvas" width="400" height="400"></canvas>
+            </div>
+            <p style="color: #888; font-size: 0.8rem;">💡 Mẹo: Dùng phím <strong>← / →</strong> hoặc kéo / chạm trên màn hình điện thoại để di chuyển.</p>
+        </div>
+
         <!-- Chọn Tháng Kỷ Niệm -->
         <div class="month-section">
             <div class="month-selector-title">📸 Album Kỷ Niệm Theo Tháng</div>
@@ -450,6 +673,29 @@
         <footer>
             Kỷ niệm 1 năm - 09/09/2025 ~ 09/09/2026 ♥
         </footer>
+    </div>
+
+    <!-- MODAL HIỂN THỊ THẺ ĐẶC QUYỀN -->
+    <div class="modal-overlay" id="coupon-modal">
+        <div class="coupon-card">
+            <div class="coupon-tag" id="modal-coupon-tag">🎟️ LOVE COUPON</div>
+            <div class="coupon-title" id="modal-coupon-title">Thẻ Đặc Quyền</div>
+            <div class="coupon-desc" id="modal-coupon-desc">Mô tả thẻ...</div>
+            <button class="close-modal-btn" onclick="closeCouponModal()">Nhận Thẻ ❤️</button>
+        </div>
+    </div>
+
+    <!-- MODAL XEM CÁC THẺ ĐÃ SỞ HỮU -->
+    <div class="modal-overlay" id="wallet-modal">
+        <div class="coupon-card" style="max-width: 500px; text-align: left;">
+            <div class="coupon-tag" style="display: block; text-align: center;">📜 VÍ THẺ ĐẶC QUYỀN CỦA BẠN</div>
+            <div id="wallet-list" style="max-height: 300px; overflow-y: auto; margin: 15px 0; padding-right: 5px;">
+                <!-- Danh sách thẻ đã mở sẽ hiện ở đây -->
+            </div>
+            <div style="text-align: center;">
+                <button class="close-modal-btn" onclick="closeWalletModal()">Đóng Ví</button>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -554,8 +800,8 @@
 
             // Tạo hiệu ứng bong bóng bay lên từ vị trí nhấn chuột
             const icons = type === 'hug' ? ['🤗', '💖', '🫂', '✨'] : ['💋', '😘', '❤️', '💕'];
-            const x = event.clientX;
-            const y = event.clientY;
+            const x = event.clientX || window.innerWidth / 2;
+            const y = event.clientY || window.innerHeight / 2;
 
             for (let i = 0; i < 8; i++) {
                 const heart = document.createElement('div');
@@ -648,6 +894,234 @@
                 resultDiv.innerHTML = `🎉 Kế hoạch hôm nay: <strong>${options[selectedIndex]}</strong>! ❤️`;
                 playCuteSound('kiss');
             }, 4000);
+        }
+
+        // --- CODE MINIGAME 3: HỘP QUÀ BẤT NGỜ (LOVE COUPONS) ---
+        const loveCoupons = [
+            { id: 1, title: "🎟️ Thẻ Được Làm Nũng Không Bị Mắng", desc: "Được tự do làm nũng, dỗi nhẹ mà không sợ bị mắng hay giận ngược! (Hạn dùng: Vĩnh viễn)" },
+            { id: 2, title: "🎫 Thẻ Bao Ăn Một Bữa Tùy Chọn", desc: "Đối phương sẽ chiêu đãi 1 bữa ăn ngon lành ở bất cứ quán nào bạn muốn!" },
+            { id: 3, title: "🎫 Thẻ Bắt Đối Phương Massage 15 Phút", desc: "Quyền lợi được xoa bóp, đấm lưng thư giãn bất kỳ lúc nào cảm thấy mệt mỏi." },
+            { id: 4, title: "🎫 Thẻ \"Anh/Em Luôn Đúng\"", desc: "Vũ khí tối thượng! Mãi mãi có hiệu lực giúp bạn thắng ngay lập tức trong cuộc tranh luận!" },
+            { id: 5, title: "🎟️ Thẻ Miễn Phạt Khi Làm Hỏng/Làm Sai Trò Chơi", desc: "Áp dụng khi chơi game cùng nhau mà bị thua hoặc lỡ làm sai quy tắc." },
+            { id: 6, title: "🎫 Thẻ Gọi Ship 1 Ly Trà Sữa / Đồ Ăn Đêm Tức Thì", desc: "Không cần lý do, chỉ cần phát lệnh là trà sữa/đồ ăn sẽ có mặt ngay!" },
+            { id: 7, title: "🎫 Thẻ Đã Thông Qua: Chọn Phim Đi Xem", desc: "Quyền tự chọn bộ phim chiếu rạp cho lần hẹn hò tiếp theo (Không cần thương lượng!)." },
+            { id: 8, title: "🎟️ Thẻ \"Tha Lỗi 100%\"", desc: "Áp dụng cho 1 lần lỡ đi trễ hoặc quên hẹn. Có giá trị miễn trừ mọi hình phạt!" },
+            { id: 9, title: "🎫 Thẻ Đưa Đón Tận Nơi + Ôm Miễn Phí 5 Phút", desc: "Bất kể thời tiết hay khoảng cách, người ấy sẽ đến đón và trao ôm ấm áp!" },
+            { id: 10, title: "🎟️ Thẻ Đặt Hàng Đan / Làm Quà Thủ Công", desc: "Yêu cầu người ấy đan hoặc làm thêm một món đồ handmade dễ thương (như chiếc túi xinh)." },
+            // 6 THẺ MỚI SÁNG TẠO THÊM
+            { id: 11, title: "🎟️ Thẻ Dừng Cuộc Tranh Luận Tức Thời", desc: "Khi tình hình bắt đầu căng thẳng, rút thẻ này ra thì cả hai bắt buộc phải ôm nhau 1 phút và hòa giải!" },
+            { id: 12, title: "🎫 Thẻ Quyền Lực: Thêm 1 Lần Quay Vòng Quay Hẹn Hò", desc: "Nếu không thích món ăn vừa quay trúng, thẻ này cho phép bạn bắt vòng quay hoạt động lại ngay!" },
+            { id: 13, title: "🎟️ Thẻ Order 1 Chuyến Đi Dạo Đêm", desc: "Được yêu cầu một buổi lượn xe hóng gió Hồ Tây / Phố Cổ đêm lãng mạn bất cứ lúc nào." },
+            { id: 14, title: "🎫 Thẻ Miễn Làm Việc Nhà / Thu Dọn 1 Ngày", desc: "Trong 1 ngày, đối phương sẽ là người chịu trách nhiệm thu dọn & sắp xếp đồ đạc giúp bạn!" },
+            { id: 15, title: "🎟️ Thẻ Chụp 1 Bộ Ảnh Photobooth Tự Chọn Concept", desc: "Được toàn quyền quyết định phông nền, dáng chụp và phụ kiện cho lần đi chụp photobooth tiếp theo!" },
+            { id: 16, title: "🎫 Thẻ Đổi 1 Yêu Cầu Bất Kỳ", desc: "Một ước nguyện đặc biệt! Bạn có thể đưa ra 1 yêu cầu hợp lý và người ấy bắt buộc phải thực hiện trong 24h." }
+        ];
+
+        let openedCoupons = JSON.parse(localStorage.getItem('openedCoupons') || '[]');
+
+        function renderGiftBoxes() {
+            const grid = document.getElementById('gift-boxes-grid');
+            grid.innerHTML = '';
+
+            loveCoupons.forEach((coupon, index) => {
+                const isOpened = openedCoupons.includes(coupon.id);
+                const box = document.createElement('div');
+                box.className = `gift-box-item ${isOpened ? 'opened' : ''}`;
+                box.innerHTML = `
+                    <span class="box-icon">${isOpened ? '🔓' : '🎁'}</span>
+                    <span class="box-num">Hộp quà #${index + 1}</span>
+                `;
+                box.onclick = () => openGiftBox(coupon, box);
+                grid.appendChild(box);
+            });
+        }
+
+        function openGiftBox(coupon, boxElement) {
+            playCuteSound('kiss');
+            
+            if (!openedCoupons.includes(coupon.id)) {
+                openedCoupons.push(coupon.id);
+                localStorage.setItem('openedCoupons', JSON.stringify(openedCoupons));
+                boxElement.classList.add('opened');
+                boxElement.querySelector('.box-icon').innerText = '🔓';
+            }
+
+            document.getElementById('modal-coupon-tag').innerText = `🎟️ THẺ ĐẶC QUYỀN #${coupon.id}`;
+            document.getElementById('modal-coupon-title').innerText = coupon.title;
+            document.getElementById('modal-coupon-desc').innerText = coupon.desc;
+            
+            document.getElementById('coupon-modal').classList.add('active');
+
+            // Tạo pháo hoa trái tim nhỏ ăn mừng
+            sendLove('hug', { clientX: window.innerWidth / 2, clientY: window.innerHeight / 2 });
+        }
+
+        function closeCouponModal() {
+            document.getElementById('coupon-modal').classList.remove('active');
+        }
+
+        function showOpenedCouponsModal() {
+            const list = document.getElementById('wallet-list');
+            list.innerHTML = '';
+
+            if (openedCoupons.length === 0) {
+                list.innerHTML = '<p style="text-align:center; color:#aaa;">Bạn chưa mở hộp quà nào cả. Hãy bấm mở hộp quà phía trên nhé!</p>';
+            } else {
+                loveCoupons.forEach(coupon => {
+                    if (openedCoupons.includes(coupon.id)) {
+                        const item = document.createElement('div');
+                        item.style.cssText = "background: rgba(255,255,255,0.08); padding: 12px; border-radius: 12px; margin-bottom: 10px; border-left: 4px solid #ff4d6d;";
+                        item.innerHTML = `
+                            <strong style="color: #ff85a2; display:block; margin-bottom: 4px;">${coupon.title}</strong>
+                            <span style="font-size: 0.85rem; color: #ddd;">${coupon.desc}</span>
+                        `;
+                        list.appendChild(item);
+                    }
+                });
+            }
+
+            document.getElementById('wallet-modal').classList.add('active');
+        }
+
+        function closeWalletModal() {
+            document.getElementById('wallet-modal').classList.remove('active');
+        }
+
+        renderGiftBoxes();
+
+        // --- CODE MINIGAME 4: BẮN TIM TÍCH ĐIỂM (LOVE CATCHER) ---
+        const catcherCanvas = document.getElementById('catcher-canvas');
+        const cCtx = catcherCanvas.getContext('2d');
+        
+        let catcherScore = 0;
+        let isCatcherRunning = false;
+        let animationId = null;
+
+        // Giỏ hứng (Nick & Judy)
+        const basket = {
+            x: 170,
+            y: 340,
+            width: 70,
+            height: 40,
+            speed: 7
+        };
+
+        let items = [];
+        const itemIcons = ['❤️', '💖', '🦊', '🐰', '⭐', '💋'];
+
+        let keys = {};
+
+        window.addEventListener('keydown', e => keys[e.code] = true);
+        window.addEventListener('keyup', e => keys[e.code] = false);
+
+        // Hỗ trợ cảm ứng điện thoại & vuốt chuột
+        catcherCanvas.addEventListener('touchmove', e => {
+            const rect = catcherCanvas.getBoundingClientRect();
+            const touchX = e.touches[0].clientX - rect.left;
+            basket.x = Math.max(0, Math.min(catcherCanvas.width - basket.width, touchX - basket.width / 2));
+        });
+
+        catcherCanvas.addEventListener('mousemove', e => {
+            if (!isCatcherRunning) return;
+            const rect = catcherCanvas.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left;
+            basket.x = Math.max(0, Math.min(catcherCanvas.width - basket.width, mouseX - basket.width / 2));
+        });
+
+        function toggleCatcherGame() {
+            const btn = document.getElementById('start-catcher-btn');
+            if (isCatcherRunning) {
+                isCatcherRunning = false;
+                cancelAnimationFrame(animationId);
+                btn.innerText = "Chơi Tiếp 🚀";
+            } else {
+                isCatcherRunning = true;
+                btn.innerText = "Tạm Dừng ⏸";
+                gameLoop();
+            }
+        }
+
+        function spawnItem() {
+            if (Math.random() < 0.05) {
+                items.push({
+                    x: Math.random() * (catcherCanvas.width - 30),
+                    y: -20,
+                    size: 26,
+                    speed: 2.5 + Math.random() * 2.5,
+                    icon: itemIcons[Math.floor(Math.random() * itemIcons.length)]
+                });
+            }
+        }
+
+        function gameLoop() {
+            if (!isCatcherRunning) return;
+
+            cCtx.clearRect(0, 0, catcherCanvas.width, catcherCanvas.height);
+
+            // Cập nhật vị trí giỏ bằng phím
+            if (keys['ArrowLeft'] && basket.x > 0) basket.x -= basket.speed;
+            if (keys['ArrowRight'] && basket.x < catcherCanvas.width - basket.width) basket.x += basket.speed;
+
+            // Vẽ Giỏ Nick & Judy
+            cCtx.fillStyle = 'rgba(255, 117, 140, 0.3)';
+            cCtx.strokeStyle = '#ff758c';
+            cCtx.lineWidth = 2;
+            cCtx.beginPath();
+            cCtx.roundRect(basket.x, basket.y, basket.width, basket.height, 12);
+            cCtx.fill();
+            cCtx.stroke();
+
+            cCtx.font = '22px Arial';
+            cCtx.textAlign = 'center';
+            cCtx.fillText('🦊🐰', basket.x + basket.width / 2, basket.y + 27);
+
+            // Tạo & Cập nhật Items
+            spawnItem();
+
+            for (let i = items.length - 1; i >= 0; i--) {
+                const item = items[i];
+                item.y += item.speed;
+
+                // Vẽ Item
+                cCtx.font = `${item.size}px Arial`;
+                cCtx.fillText(item.icon, item.x + 15, item.y + 20);
+
+                // Va chạm với giỏ
+                if (
+                    item.y + item.size >= basket.y &&
+                    item.x + item.size >= basket.x &&
+                    item.x <= basket.x + basket.width
+                ) {
+                    catcherScore += 10;
+                    document.getElementById('catcher-score').innerText = catcherScore;
+                    playCuteSound('hug');
+                    items.splice(i, 1);
+
+                    // Khi đạt 100 điểm - Tặng quà!
+                    if (catcherScore >= 100) {
+                        isCatcherRunning = false;
+                        document.getElementById('start-catcher-btn').innerText = "Chơi Lại 🔄";
+                        catcherScore = 0;
+                        document.getElementById('catcher-score').innerText = '100 (Thắng!)';
+
+                        // Chọn ngẫu nhiên 1 thẻ chưa mở hoặc ngẫu nhiên
+                        const unOpened = loveCoupons.filter(c => !openedCoupons.includes(c.id));
+                        const targetCoupon = unOpened.length > 0 
+                            ? unOpened[Math.floor(Math.random() * unOpened.length)]
+                            : loveCoupons[Math.floor(Math.random() * loveCoupons.length)];
+
+                        setTimeout(() => {
+                            alert("🎉 Chúc mừng bạn đã xuất sắc đạt 100 điểm! Một Hộp Quà Đặc Quyền được mở khóa!");
+                            openGiftBox(targetCoupon, document.querySelectorAll('.gift-box-item')[targetCoupon.id - 1]);
+                        }, 200);
+                        return;
+                    }
+                } else if (item.y > catcherCanvas.height) {
+                    items.splice(i, 1);
+                }
+            }
+
+            animationId = requestAnimationFrame(gameLoop);
         }
 
         // 4. Dữ liệu Ảnh theo từng Tháng 
