@@ -1467,20 +1467,107 @@
         }
 
         // --- BỘ CHỌN ALBUM KỶ NIỆM THEO THÁNG ---
-        const albumData = [
-            { id: '2025-09', name: '09/2025', photos: [{ src: 'https://picsum.photos/300/300?random=1', caption: 'Tháng đầu bên nhau ❤️' }] },
-            { id: '2025-10', name: '10/2025', photos: [{ src: 'https://picsum.photos/300/300?random=2', caption: 'Lần đầu chụp photobooth 🎞️' }] },
-            { id: '2025-11', name: '11/2025', photos: [{ src: 'https://picsum.photos/300/300?random=3', caption: 'Những buổi tối hẹn hò ấm áp ☕' }] },
-            { id: '2025-12', name: '12/2025', photos: [{ src: 'https://picsum.photos/300/300?random=4', caption: 'First Kiss & Mùa đông ngọt ngào 🎄' }] },
-            { id: '2026-01', name: '01/2026', photos: [{ src: 'https://picsum.photos/300/300?random=5', caption: 'Chào năm mới cùng nhau 🎆' }] },
-            { id: '2026-02', name: '02/2026', photos: [{ src: 'https://picsum.photos/300/300?random=6', caption: 'Valentine đầu tiên 🍫' }] },
-            { id: '2026-03', name: '03/2026', photos: [{ src: 'https://picsum.photos/300/300?random=7', caption: 'Tháng 3 dịu dàng 🌸' }] },
-            { id: '2026-04', name: '04/2026', photos: [{ src: 'https://picsum.photos/300/300?random=8', caption: 'Những chuyến đi chơi xa 🚗' }] },
-            { id: '2026-05', name: '05/2026', photos: [{ src: 'https://picsum.photos/300/300?random=9', caption: 'Chụp ảnh ngày nắng đẹp ☀️' }] },
-            { id: '2026-06', name: '06/2026', photos: [{ src: 'https://picsum.photos/300/300?random=10', caption: 'Mùa hè rực rỡ 🌊' }] },
-            { id: '2026-07', name: '07/2026', photos: [{ src: 'https://picsum.photos/300/300?random=11', caption: 'Cùng nhau đi ăn đồ ngon 🍦' }] },
-            { id: '2026-08', name: '08/2026', photos: [{ src: 'https://picsum.photos/300/300?random=12', caption: 'Bộ ảnh riêng siêu xinh 📷' }] },
-            { id: '2026-09', name: '09/2026', photos: [{ src: 'https://picsum.photos/300/300?random=13', caption: 'Kỷ niệm tròn 1 năm yêu 💖' }] }
+       const monthsData = [
+            { id: '09-2025', label: 'Tháng 09/2025', images: [
+                { url: '9-2025_1.jpg', note: 'Lần đầu nắm tay là ngày tỏ tình' },
+                { url: '9-2025_4.jpg', note: 'Quán nước tỏ tình giờ đã đóng cửa ' },
+                { url: '9-2025_3.jpg', note: 'Đón em tan học' },
+                { url: '9-2025_2.jpg', note: 'Mới yêu đã xa em 2 tuần' }
+            ]},
+            { id: '10-2025', label: 'Tháng 10/2025', images: [
+                { url: '10-2025_1.jpg', note: 'Đưa em nhẫn và bé Elise' },
+                { url: '10-2025_2.jpg', note: 'Photobooth đầu tiên sau khi em thi xong' },
+                { url: '10-2025_3.jpg', note: 'Lần chụp ảnh áo đôi đầu tiên của tụi mình' },
+                { url: '10-2025_4.jpg', note: 'Bánh tira em tự làm nè' },
+                { url: '10-2025_5.jpg', note: 'Photo rain nè' },
+                { url: '10-2025_6.jpg', note: 'Lần đầu đón thu Hà Nội cùng nhau' },
+                { url: '10-2025_7.jpg', note: 'Ngắm tàu hỏa chạy ở quán coffee' },
+                { url: '10-2025_8.jpg', note: '25/10/2025 iu ' }
+            ]},
+            { id: '11-2025', label: 'Tháng 11/2025', images: [
+                { url: '11-2025_1.jpg', note: 'Lần đầu em ăn pizza mật ong' },
+                { url: '11-2025_2.jpg', note: 'Đi Royal City cùng nhau nè' },
+                { url: '11-2025_3.jpg', note: 'Trò này em chơi dở quá toàn làm sai' },
+                { url: '11-2025_4.jpg', note: 'Người màu mè như em cũng thích ảnh đen trắng' },
+                { url: '11-2025_5.jpg', note: 'Anni 2 tháng của chúng mình' },
+                { url: '11-2025_6.jpg', note: '8/11/2025 iuuuu' },
+                { url: '11-2025_7.jpg', note: 'Lần đầu em cầm máy ảnh của anh' },
+                { url: '11-2025_8.jpg', note: 'Hehee đẹp đôi quá' },
+                { url: '11-2025_9.jpg', note: 'Yêu anh nhìuuu' }
+            ]},
+            { id: '12-2025', label: 'Tháng 12/2025', images: [
+                { url: '12-2025_1.jpg', note: 'Chụp ptb Nick & Judy nè' },
+                { url: '12-2025_2.jpg', note: 'Rùi đi xem phim Zootopia 2' },
+                { url: '12-2025_3.jpg', note: 'Anh tổ chức sinh nhật cho em nè' },
+                { url: '12-2025_4.jpg', note: '13/12/2025 đi dạo ở Aeon Xuân Thủy' },
+                { url: '12-2025_5.jpg', note: 'Ptb ở Lotte Tây Hồ nè, anh mặc áo em mua hehe' }
+            ]},
+            { id: '01-2026', label: 'Tháng 01/2026', images: [
+                { url: '1-2026_1.jpg', note: 'Photo pallete ngay gần nhà em nè' },
+                { url: '1-2026_2.jpg', note: 'Đón năm mới cùng nhau ở công viên Nghĩa Đô' },
+                { url: '1-2026_3.jpg', note: 'Anh kéo sao về...' },
+                { url: '1-2026_4.jpg', note: 'Ptb em không phục thù thành công huhu' },
+                { url: '1-2026_5.jpg', note: 'Mình đi làm ốp đôi đầu tiên' },
+                { url: '1-2026_6.jpg', note: 'Anh thấy áo đôi Nick & Judy của mình hem' }
+            ]},
+            { id: '02-2026', label: 'Tháng 02/2026', images: [
+                { url: '2-2026_1.jpg', note: 'Mối tình đầu xuân ai thấu chăng~' },
+                { url: '2-2026_2.jpg', note: 'Đi ăn sớm nhân dịp Valentine' },
+                { url: '2-2026_3.jpg', note: 'Không biết ở đây có bao nhiêu bông hoa nhỉ' },
+                { url: '2-2026_4.jpg', note: 'Mình chụp ptb vlt sớm tận 2 tuần đấy' },
+                { url: '2-2026_5.jpg', note: 'Đẹp đôi quá moah moah' }
+            ]},
+            { id: '03-2026', label: 'Tháng 03/2026', images: [
+                { url: '3-2026_1.jpg', note: 'Lần đầu em đến Học viện Cảnh sát' },
+                { url: '3-2026_2.jpg', note: 'Để tổ chức sinh nhật cho anh' },
+                { url: '3-2026_3.jpg', note: '14/03/26 của tụi mình vì sinh nhật anh là ngày bầu cử' },
+                { url: '3-2026_4.jpg', note: 'Quà vlt của em nèeee' },
+                { url: '3-2026_5.jpg', note: 'Anh đồng hành cùng em qua các mùa thi' }
+            ]},
+            { id: '04-2026', label: 'Tháng 04/2026', images: [
+                { url: '4-2026_1.jpg', note: 'Mình ngồi nghỉ sau khi đi dạo Hồ Gươm với nhau' },
+                { url: '4-2026_2.jpg', note: 'Chụt chụt' },
+                { url: '4-2026_3.jpg', note: 'Ptb 05/04/2026' },
+                { url: '4-2026_4.jpg', note: 'Yêu yêuu quá' },
+                { url: '4-2026_5.jpg', note: 'Hôm ấy mình đi chụp 2 ptb với 3 phông nền lun' },
+                { url: '4-2026_6.jpg', note: 'Anh nhớ nhường em nhéee' }
+            ]},
+            { id: '05-2026', label: 'Tháng 05/2026', images: [
+                { url: '5-2026_1.jpg', note: 'Em đeo vòng anh mua từ Nha Trang nè' },
+                { url: '5-2026_2.jpg', note: 'Có hai bé iu iu ở đây' },
+                { url: '5-2026_3.jpg', note: 'Ptb thật cute khi cho mình chụp lại ảnh lỗi' },
+                { url: '5-2026_4.jpg', note: 'Mình mặc đồ đôi' },
+                { url: '5-2026_5.jpg', note: 'Để đi anni 8 tháng cùng nhau' },
+                { url: '5-2026_6.jpg', note: 'Em thích cháo canh anh mang ra lắm' },
+                { url: '5-2026_7.jpg', note: 'Anh siêu khéo tay, anh đan túi cho em nè' }
+            ]},
+            { id: '06-2026', label: 'Tháng 06/2026', images: [
+                { url: '6-2026_1.jpg', note: 'Em thích ptb này nhất lun' },
+                { url: '6-2026_2.jpg', note: 'Thích chọt má lúm của anh nữa' },
+                { url: '6-2026_3.jpg', note: 'Yêu quá điiii' },
+                { url: '6-2026_4.jpg', note: 'Chụt chụt người đang xem ảnh' },
+                { url: '6-2026_5.jpg', note: 'Hehee em chơi trò giải đố anh tự làm' }
+            ]},
+            { id: '07-2026', label: 'Tháng 07/2026', images: [
+                { url: '7-2026_1.jpg', note: '300 days của chúng mình' },
+                { url: '7-2026_2.jpg', note: '3/7/26, em dẫn anh lần đầu ăn A Choén' },
+                { url: '7-2026_3.jpg', note: 'Anh dạy em văn hóa uống bia' },
+                { url: '7-2026_4.jpg', note: 'Công chúa của ai đấy' }
+            ]},
+            { id: '08-2026', label: 'Tháng 08/2026', images: [
+                { url: '8-2026_1.jpg', note: 'Đón bé Pi anh có từ lúc hiến máu' },
+                { url: '8-2026_2.jpg', note: 'Mình đi chụp anni 1 năm nè' },
+                { url: '8-2026_3.jpg', note: 'Công viên Thống Nhất chụp đẹp quá em thích' },
+                { url: '8-2026_4.jpg', note: 'Sao em phun bóng lại bị bay ngược nhỉ' },
+                { url: '8-2026_5.jpg', note: 'Ảnh này dành đăng 2/9 nè' },
+                { url: '8-2026_6.jpg', note: 'Đây là em trưởng thành' },
+                { url: '8-2026_7.jpg', note: 'Đây là em dễ thương - anh bảo z' }
+            ]},
+            { id: '09-2026', label: 'Tháng 09/2026', images: [
+                { url: '9-2026_1.jpg', note: '6/9/2026, mình đi kỉ niệm 1 năm nè' },
+                { url: '9-2026_2.jpg', note: 'Lần đầu anh đi xe buýt hehe' },
+                { url: '9-2026_3.jpg', note: 'Chúng mình cùng đón thật nhiều anni cùng nhau nhé' }
+            ]}
         ];
 
         function renderMonthButtons() {
