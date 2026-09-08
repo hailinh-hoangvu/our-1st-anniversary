@@ -795,7 +795,7 @@
         <!-- MINIGAME MỚI 2: CỜ CARO TÌNH YÊU 5x5 (TIC-TAC-TOE) -->
         <div class="game-card">
             <h2 class="section-title" style="margin-top:0;">❌⭕ Cờ Caro Tình Yêu (5x5)</h2>
-<p style="color: #bbb; font-size: 0.9rem; margin-bottom: 15px;">Luật chơi: Xếp **5 ô liên tiếp** (ngang, dọc, chéo) để chiến thắng!</p>
+<p style="color: #bbb; font-size: 0.9rem; margin-bottom: 15px;">Luật chơi: Xếp 4 ô liên tiếp (ngang, dọc, chéo) để chiến thắng!</p>
 
             <div class="ttt-mode-select">
                 <button class="ttt-mode-btn active" id="mode-2p" onclick="setTTTMode('2p')">👥 2 Người (Chung Màn Hình)</button>
@@ -1065,7 +1065,7 @@
         }
 
   /*************************************************************
- * TRÒ CHƠI CỜ CARO TÌNH YÊU 5x5 - AI THÔNG MINH (5 CON LIÊN TIẾP)
+ * TRÒ CHƠI CỜ CARO TÌNH YÊU 5x5 - AI THÔNG MINH (4 CON LIÊN TIẾP)
  *************************************************************/
 let tttBoard = Array(25).fill(null);
 let tttCurrentPlayer = 'X'; // 'X' là Hải Linh (👑 🐰), 'O' là Tân (🤖 🦊)
@@ -1141,7 +1141,7 @@ function makeMove(index, player) {
     cells[index].style.color = player === 'X' ? '#ff758c' : '#42a5f5';
 }
 
-// Kiểm tra 5 con liên tiếp để thắng
+// Kiểm tra 4 con liên tiếp để thắng
 function checkTTTWinner(board, player) {
     const directions = [
         [0, 1],  // Ngang
@@ -1156,7 +1156,8 @@ function checkTTTWinner(board, player) {
 
             for (let [dr, dc] of directions) {
                 let count = 1;
-                for (let i = 1; i < 5; i++) {
+                // SỬA Ở ĐÂY: Chạy lặp 3 lần tiếp theo (tổng thành 4 ô)
+                for (let i = 1; i < 4; i++) { 
                     let nr = r + dr * i;
                     let nc = c + dc * i;
                     if (nr >= 0 && nr < 5 && nc >= 0 && nc < 5 && board[nr * 5 + nc] === player) {
@@ -1165,7 +1166,8 @@ function checkTTTWinner(board, player) {
                         break;
                     }
                 }
-                if (count >= 5) return true;
+                // SỬA Ở ĐÂY: Nếu đủ >= 4 con thì thắng
+                if (count >= 4) return true; 
             }
         }
     }
@@ -1261,24 +1263,21 @@ function evaluateBoard(board) {
     return score;
 }
 
-// Hàm tính điểm cho các chuỗi hàng/cột/chéo
+// Hàm tính điểm cho các chuỗi hàng/cột/chéo (Đã điều chỉnh cho luật 4 ô)
 function evaluateLines(board, player) {
     let totalScore = 0;
-    let threatCount = 0; // Đếm số nước đe dọa để phát hiện BẪY / NƯỚC ĐÔI
+    let threatCount = 0;
 
     const directions = [[0, 1], [1, 0], [1, 1], [1, -1]];
 
     for (let r = 0; r < 5; r++) {
         for (let c = 0; c < 5; c++) {
             for (let [dr, dc] of directions) {
-                let count = 0;
-                let openEnds = 0;
-
-                // Kiểm tra 5 ô liên tiếp theo hướng dr, dc
                 let lineCells = [];
                 let validLine = true;
 
-                for (let i = 0; i < 5; i++) {
+                // Đổi vòng lặp từ 5 thành 4 ô liên tiếp
+                for (let i = 0; i < 4; i++) {
                     let nr = r + dr * i;
                     let nc = c + dc * i;
                     if (nr < 0 || nr >= 5 || nc < 0 || nc >= 5) {
@@ -1290,30 +1289,24 @@ function evaluateLines(board, player) {
 
                 if (!validLine) continue;
 
-                // Đếm số quân của player và ô trống trong đoạn 5 ô
                 let opponent = player === 'O' ? 'X' : 'O';
-                if (lineCells.includes(opponent)) continue; // Chuỗi bị chặn bởi đối thủ -> Không còn nguy hiểm
+                if (lineCells.includes(opponent)) continue;
 
                 let playerCount = lineCells.filter(cell => cell === player).length;
-                let emptyCount = lineCells.filter(cell => cell === null).length;
 
-                // Thưởng điểm theo độ nguy hiểm của chuỗi
-                if (playerCount === 5) {
-                    totalScore += 50000;
-                } else if (playerCount === 4) {
-                    totalScore += 5000;
-                    threatCount++;
+                // Thưởng điểm theo luật 4 ô là thắng:
+                if (playerCount === 4) {
+                    totalScore += 50000; // Đủ 4 con -> Thắng ngay
                 } else if (playerCount === 3) {
-                    totalScore += 500; // Biết chặn/tạo chuỗi 3 từ sớm
+                    totalScore += 5000;  // Chuỗi 3 con -> Rất nguy hiểm (cần thủ/công ngay)
                     threatCount++;
                 } else if (playerCount === 2) {
-                    totalScore += 50;  // Biết thủ từ 2 con
+                    totalScore += 500;   // Chuỗi 2 con -> Bắt đầu chặn hoặc tạo thế
                 }
             }
         }
     }
 
-    // Nếu tạo được từ 2 đường đe dọa trở lên -> NƯỚC ĐÔI / BẪY -> Thưởng điểm cực cao
     if (threatCount >= 2) {
         totalScore += 8000;
     }
