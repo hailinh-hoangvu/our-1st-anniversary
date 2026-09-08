@@ -573,7 +573,7 @@
             box-shadow: 0 6px 20px rgba(30, 136, 229, 0.6);
         }
 
-        /* 6. STYLES CHO CỜ CARO TÌNH YÊU (TIC-TAC-TOE) */
+        /* 6. STYLES CHO CỜ CARO TÌNH YÊU 5x5 */
         .ttt-mode-select {
             display: flex;
             justify-content: center;
@@ -602,19 +602,19 @@
 
         .ttt-board {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            max-width: 300px;
+            grid-template-columns: repeat(5, 1fr); /* Đã đổi thành 5 cột */
+            gap: 6px;
+            max-width: 320px;
             margin: 20px auto;
         }
 
         .ttt-cell {
-            width: 90px;
-            height: 90px;
+            width: 100%;
+            aspect-ratio: 1 / 1;
             background: rgba(255, 255, 255, 0.08);
             border: 1px solid rgba(255, 133, 162, 0.3);
-            border-radius: 16px;
-            font-size: 2.5rem;
+            border-radius: 10px;
+            font-size: 1.6rem;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -625,7 +625,7 @@
 
         .ttt-cell:hover {
             background: rgba(255, 133, 162, 0.2);
-            transform: scale(1.03);
+            transform: scale(1.05);
         }
 
         .ttt-status {
@@ -792,18 +792,19 @@
             </div>
         </div>
 
-        <!-- MINIGAME MỚI 2: CỜ CARO TÌNH YÊU (TIC-TAC-TOE) -->
+        <!-- MINIGAME MỚI 2: CỜ CARO TÌNH YÊU 5x5 (TIC-TAC-TOE) -->
         <div class="game-card">
-            <h2 class="section-title" style="margin-top:0;">❌⭕ Cờ Caro Tình Yêu</h2>
-            <p style="color: #bbb; font-size: 0.9rem; margin-bottom: 15px;">Luật vui: Người thắng được bắt người thua làm 1 yêu cầu nhỏ (như pha trà sữa, đấm lưng 5 phút)!</p>
+            <h2 class="section-title" style="margin-top:0;">❌⭕ Cờ Caro Tình Yêu (5x5)</h2>
+            <p style="color: #bbb; font-size: 0.9rem; margin-bottom: 15px;">Luật chơi: Xếp **4 ô liên tiếp** (ngang, dọc, chéo) để chiến thắng!</p>
 
             <div class="ttt-mode-select">
                 <button class="ttt-mode-btn active" id="mode-2p" onclick="setTTTMode('2p')">👥 2 Người (Chung Màn Hình)</button>
-                <button class="ttt-mode-btn" id="mode-ai" onclick="setTTTMode('ai')">🤖 Chơi với Bot (Siêu Khó)</button>
+                <button class="ttt-mode-btn" id="mode-ai" onclick="setTTTMode('ai')">🤖 Chơi với Bot (Thông Minh)</button>
             </div>
 
             <div class="ttt-status" id="ttt-status">Lượt đi: Hải Linh (👑 🐰)</div>
 
+            <!-- Bàn cờ 25 ô (5x5) -->
             <div class="ttt-board" id="ttt-board">
                 <div class="ttt-cell" onclick="handleTTTClick(0)"></div>
                 <div class="ttt-cell" onclick="handleTTTClick(1)"></div>
@@ -814,6 +815,22 @@
                 <div class="ttt-cell" onclick="handleTTTClick(6)"></div>
                 <div class="ttt-cell" onclick="handleTTTClick(7)"></div>
                 <div class="ttt-cell" onclick="handleTTTClick(8)"></div>
+                <div class="ttt-cell" onclick="handleTTTClick(9)"></div>
+                <div class="ttt-cell" onclick="handleTTTClick(10)"></div>
+                <div class="ttt-cell" onclick="handleTTTClick(11)"></div>
+                <div class="ttt-cell" onclick="handleTTTClick(12)"></div>
+                <div class="ttt-cell" onclick="handleTTTClick(13)"></div>
+                <div class="ttt-cell" onclick="handleTTTClick(14)"></div>
+                <div class="ttt-cell" onclick="handleTTTClick(15)"></div>
+                <div class="ttt-cell" onclick="handleTTTClick(16)"></div>
+                <div class="ttt-cell" onclick="handleTTTClick(17)"></div>
+                <div class="ttt-cell" onclick="handleTTTClick(18)"></div>
+                <div class="ttt-cell" onclick="handleTTTClick(19)"></div>
+                <div class="ttt-cell" onclick="handleTTTClick(20)"></div>
+                <div class="ttt-cell" onclick="handleTTTClick(21)"></div>
+                <div class="ttt-cell" onclick="handleTTTClick(22)"></div>
+                <div class="ttt-cell" onclick="handleTTTClick(23)"></div>
+                <div class="ttt-cell" onclick="handleTTTClick(24)"></div>
             </div>
 
             <button class="reset-ttt-btn" onclick="resetTTTGame()">Chơi Ván Mới 🔄</button>
@@ -1047,14 +1064,16 @@
             }
         }
 
-        // --- CODE MINIGAME MỚI 2: CỜ CARO TÌNH YÊU (TIC-TAC-TOE) ---
-        let tttBoard = ['', '', '', '', '', '', '', '', ''];
-        let tttCurrentPlayer = 'X'; // X: Hải Linh (👑🐰), O: Minh Tân / AI (👑🦊)
+       
+ // --- JS CỜ CARO TÌNH YÊU 5x5 ---
+        let tttBoard = Array(25).fill('');
+        let tttCurrentPlayer = 'X'; // X: Hải Linh (👑 🐰), O: Minh Tân / Bot (🐻)
+        let tttGameActive = true;
         let tttMode = '2p'; // '2p' hoặc 'ai'
-        let tttActive = true;
 
-        const p1Symbol = '🐰';
-        const p2Symbol = '🦊';
+        const P1_ICON = '🐰';
+        const P2_ICON = '🐻';
+        const WIN_COUNT = 4; // Cần 4 ô liên tiếp để thắng
 
         function setTTTMode(mode) {
             tttMode = mode;
@@ -1064,114 +1083,149 @@
         }
 
         function handleTTTClick(index) {
-            if (tttBoard[index] !== '' || !tttActive) return;
+            if (tttBoard[index] !== '' || !tttGameActive) return;
 
-            tttBoard[index] = tttCurrentPlayer;
-            updateTTTBoard();
+            makeMove(index, tttCurrentPlayer);
 
-            if (checkTTTWinner(tttBoard, tttCurrentPlayer)) {
-                let winnerText = tttCurrentPlayer === 'X' ? "Hải Linh (👑 🐰) đã Thắng! 🎉" : (tttMode === 'ai' ? "AI đã Thắng! 🤖" : "Minh Tân (👑 🦊) đã Thắng! 🎉");
-                document.getElementById('ttt-status').innerText = winnerText + " Thực hiện yêu cầu ngay nào!";
-                tttActive = false;
-                playCuteSound('kiss');
+            if (checkWinner(tttBoard, tttCurrentPlayer)) {
+                let winnerName = tttCurrentPlayer === 'X' ? 'Hải Linh 👑' : (tttMode === 'ai' ? 'Bot 🤖' : 'Minh Tân 💖');
+                document.getElementById('ttt-status').innerText = `🎉 ${winnerName} đã chiến thắng!`;
+                tttGameActive = false;
                 return;
             }
 
-            if (tttBoard.every(cell => cell !== '')) {
-                document.getElementById('ttt-status').innerText = "Hòa rồi! Cả 2 cùng làm trà sữa cho nhau nhé 🧋";
-                tttActive = false;
+            if (!tttBoard.includes('')) {
+                document.getElementById('ttt-status').innerText = '🤝 Hòa nhau rồi! Cả 2 cùng thắng!';
+                tttGameActive = false;
                 return;
             }
 
+            // Đổi lượt
             tttCurrentPlayer = tttCurrentPlayer === 'X' ? 'O' : 'X';
+            updateTTTStatus();
 
-            if (tttMode === 'ai' && tttCurrentPlayer === 'O' && tttActive) {
-                document.getElementById('ttt-status').innerText = "Bot AI đang suy nghĩ...";
+            // Nếu chế độ chơi với Bot
+            if (tttMode === 'ai' && tttCurrentPlayer === 'O' && tttGameActive) {
                 setTimeout(makeAIMove, 400);
-            } else {
-                updateTTTStatusText();
             }
         }
 
-        function updateTTTStatusText() {
-            let name = tttCurrentPlayer === 'X' ? "Hải Linh (👑 🐰)" : "Minh Tân (👑 🦊)";
-            document.getElementById('ttt-status').innerText = `Lượt đi: ${name}`;
+        function makeMove(index, player) {
+            tttBoard[index] = player;
+            const cells = document.querySelectorAll('.ttt-cell');
+            cells[index].innerText = player === 'X' ? P1_ICON : P2_ICON;
         }
 
-        function updateTTTBoard() {
-            const cells = document.querySelectorAll('.ttt-cell');
-            cells.forEach((cell, i) => {
-                if (tttBoard[i] === 'X') cell.innerText = p1Symbol;
-                else if (tttBoard[i] === 'O') cell.innerText = p2Symbol;
-                else cell.innerText = '';
-            });
+        function updateTTTStatus() {
+            if (tttMode === '2p') {
+                document.getElementById('ttt-status').innerText = tttCurrentPlayer === 'X' 
+                    ? `Lượt đi: Hải Linh (${P1_ICON})` 
+                    : `Lượt đi: Minh Tân (${P2_ICON})`;
+            } else {
+                document.getElementById('ttt-status').innerText = tttCurrentPlayer === 'X' 
+                    ? `Lượt của bạn (${P1_ICON})` 
+                    : `Bot đang suy nghĩ... (${P2_ICON})`;
+            }
+        }
+
+        // Kiểm tra điều kiện thắng 4 ô liên tiếp trên ma trận 5x5
+        function checkWinner(board, player) {
+            const size = 5;
+            
+            // Hàm lấy giá trị ô ở tọa độ (r, c)
+            const getCell = (r, c) => board[r * size + c];
+
+            for (let r = 0; r < size; r++) {
+                for (let c = 0; c < size; c++) {
+                    if (getCell(r, c) !== player) continue;
+
+                    // 1. Kiểm tra hàng ngang (phải)
+                    if (c + WIN_COUNT <= size) {
+                        let win = true;
+                        for (let i = 0; i < WIN_COUNT; i++) {
+                            if (getCell(r, c + i) !== player) win = false;
+                        }
+                        if (win) return true;
+                    }
+
+                    // 2. Kiểm tra cột dọc (xuống)
+                    if (r + WIN_COUNT <= size) {
+                        let win = true;
+                        for (let i = 0; i < WIN_COUNT; i++) {
+                            if (getCell(r + i, c) !== player) win = false;
+                        }
+                        if (win) return true;
+                    }
+
+                    // 3. Kiểm tra chéo xuôi (xuống - phải)
+                    if (r + WIN_COUNT <= size && c + WIN_COUNT <= size) {
+                        let win = true;
+                        for (let i = 0; i < WIN_COUNT; i++) {
+                            if (getCell(r + i, c + i) !== player) win = false;
+                        }
+                        if (win) return true;
+                    }
+
+                    // 4. Kiểm tra chéo ngược (xuống - trái)
+                    if (r + WIN_COUNT <= size && c - WIN_COUNT + 1 >= 0) {
+                        let win = true;
+                        for (let i = 0; i < WIN_COUNT; i++) {
+                            if (getCell(r + i, c - i) !== player) win = false;
+                        }
+                        if (win) return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        // Bot thông minh (Ưu tiên thắng -> Chặn người chơi -> Đánh gần vị trí đã có)
+        function makeAIMove() {
+            let emptyIndices = tttBoard.map((val, idx) => val === '' ? idx : null).filter(val => val !== null);
+            if (emptyIndices.length === 0 || !tttGameActive) return;
+
+            // 1. Kiểm tra xem AI có nước đi để THẮNG ngay không
+            for (let idx of emptyIndices) {
+                tttBoard[idx] = 'O';
+                if (checkWinner(tttBoard, 'O')) {
+                    tttBoard[idx] = '';
+                    handleTTTClick(idx);
+                    return;
+                }
+                tttBoard[idx] = '';
+            }
+
+            // 2. Kiểm tra xem phải CHẶN Người chơi thắng không
+            for (let idx of emptyIndices) {
+                tttBoard[idx] = 'X';
+                if (checkWinner(tttBoard, 'X')) {
+                    tttBoard[idx] = '';
+                    handleTTTClick(idx);
+                    return;
+                }
+                tttBoard[idx] = '';
+            }
+
+            // 3. Nếu ở ô tâm (12) chưa ai đánh thì đánh ô tâm
+            if (emptyIndices.includes(12)) {
+                handleTTTClick(12);
+                return;
+            }
+
+            // 4. Chọn ngẫu nhiên trong các ô trống còn lại
+            let randomIndex = emptyIndices[Math.floor(Math.random() * emptyIndices.length)];
+            handleTTTClick(randomIndex);
         }
 
         function resetTTTGame() {
-            tttBoard = ['', '', '', '', '', '', '', '', ''];
+            tttBoard = Array(25).fill('');
             tttCurrentPlayer = 'X';
-            tttActive = true;
-            updateTTTBoard();
-            updateTTTStatusText();
-        }
-
-        function checkTTTWinner(board, player) {
-            const winPatterns = [
-                [0,1,2], [3,4,5], [6,7,8],
-                [0,3,6], [1,4,7], [2,5,8],
-                [0,4,8], [2,4,6]
-            ];
-            return winPatterns.some(pattern => pattern.every(idx => board[idx] === player));
-        }
-
-        // THUẬT TOÁN MINIMAX CHO BOT AI KHÓ
-        function makeAIMove() {
-            let bestScore = -Infinity;
-            let move;
-            for (let i = 0; i < 9; i++) {
-                if (tttBoard[i] === '') {
-                    tttBoard[i] = 'O';
-                    let score = minimax(tttBoard, 0, false);
-                    tttBoard[i] = '';
-                    if (score > bestScore) {
-                        bestScore = score;
-                        move = i;
-                    }
-                }
-            }
-            if (move !== undefined) {
-                handleTTTClick(move);
-            }
-        }
-
-        function minimax(board, depth, isMaximizing) {
-            if (checkTTTWinner(board, 'O')) return 10 - depth;
-            if (checkTTTWinner(board, 'X')) return depth - 10;
-            if (board.every(c => c !== '')) return 0;
-
-            if (isMaximizing) {
-                let bestScore = -Infinity;
-                for (let i = 0; i < 9; i++) {
-                    if (board[i] === '') {
-                        board[i] = 'O';
-                        let score = minimax(board, depth + 1, false);
-                        board[i] = '';
-                        bestScore = Math.max(score, bestScore);
-                    }
-                }
-                return bestScore;
-            } else {
-                let bestScore = Infinity;
-                for (let i = 0; i < 9; i++) {
-                    if (board[i] === '') {
-                        board[i] = 'X';
-                        let score = minimax(board, depth + 1, true);
-                        board[i] = '';
-                        bestScore = Math.min(score, bestScore);
-                    }
-                }
-                return bestScore;
-            }
+            tttGameActive = true;
+            
+            const cells = document.querySelectorAll('.ttt-cell');
+            cells.forEach(cell => cell.innerText = '');
+            
+            updateTTTStatus();
         }
 
         // --- CODE MINIGAME 2: VÒNG QUAY HẸN HÒ ---
