@@ -500,6 +500,155 @@
             box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4);
         }
 
+        /* 5. STYLES CHO CÂY TÌNH YÊU (INTERACTIVE LOVE TREE) */
+        .tree-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            position: relative;
+        }
+
+        .tree-display {
+            font-size: 6rem;
+            position: relative;
+            transition: all 0.5s ease;
+            filter: drop-shadow(0 0 15px rgba(255, 133, 162, 0.4));
+        }
+
+        .tree-display.blooming {
+            animation: pulseGlow 1.5s infinite alternate;
+        }
+
+        @keyframes pulseGlow {
+            from { transform: scale(1); filter: drop-shadow(0 0 15px rgba(255, 133, 162, 0.6)); }
+            to { transform: scale(1.1); filter: drop-shadow(0 0 30px rgba(255, 77, 109, 1)); }
+        }
+
+        .memory-milestones {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+            max-width: 500px;
+            margin-top: 10px;
+        }
+
+        .milestone-item {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px dashed rgba(255, 133, 162, 0.4);
+            padding: 12px 18px;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            color: #ffb3c1;
+            text-align: left;
+            opacity: 0.3;
+            transform: translateY(10px);
+            transition: all 0.5s ease;
+        }
+
+        .milestone-item.active {
+            opacity: 1;
+            transform: translateY(0);
+            background: rgba(255, 77, 109, 0.15);
+            border-style: solid;
+            box-shadow: 0 4px 15px rgba(255, 77, 109, 0.2);
+        }
+
+        .water-btn {
+            background: linear-gradient(135deg, #42a5f5 0%, #1e88e5 100%);
+            border: none;
+            color: white;
+            padding: 12px 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(30, 136, 229, 0.4);
+            transition: all 0.3s;
+        }
+
+        .water-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(30, 136, 229, 0.6);
+        }
+
+        /* 6. STYLES CHO CỜ CARO TÌNH YÊU (TIC-TAC-TOE) */
+        .ttt-mode-select {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .ttt-mode-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 133, 162, 0.3);
+            color: #ccc;
+            padding: 8px 18px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .ttt-mode-btn.active {
+            background: #ff4d6d;
+            color: white;
+            border-color: #ff4d6d;
+            box-shadow: 0 0 10px rgba(255, 77, 109, 0.5);
+        }
+
+        .ttt-board {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            max-width: 300px;
+            margin: 20px auto;
+        }
+
+        .ttt-cell {
+            width: 90px;
+            height: 90px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 133, 162, 0.3);
+            border-radius: 16px;
+            font-size: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            user-select: none;
+        }
+
+        .ttt-cell:hover {
+            background: rgba(255, 133, 162, 0.2);
+            transform: scale(1.03);
+        }
+
+        .ttt-status {
+            font-size: 1.1rem;
+            margin: 15px 0;
+            color: #ff85a2;
+            font-weight: 600;
+            min-height: 28px;
+        }
+
+        .reset-ttt-btn {
+            background: linear-gradient(135deg, #ff758c 0%, #ff85a2 100%);
+            border: none;
+            color: white;
+            padding: 10px 25px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-radius: 25px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 117, 140, 0.4);
+            transition: all 0.2s;
+        }
+
         /* Bộ chọn Tháng */
         .month-selector-title {
             font-size: 1.4rem;
@@ -614,6 +763,60 @@
                 <div class="love-count-badge">Đã gửi: <span id="hug-count">0</span> cái ôm 🤗</div>
                 <div class="love-count-badge">Đã gửi: <span id="kiss-count">0</span> nụ hôn 💋</div>
             </div>
+        </div>
+
+        <!-- MINIGAME MỚI 1: CÂY TÌNH YÊU (INTERACTIVE LOVE TREE) -->
+        <div class="game-card">
+            <h2 class="section-title" style="margin-top:0;">🌳 Cây Tình Yêu (Memory Tree)</h2>
+            <p style="color: #bbb; font-size: 0.95rem; margin-bottom: 20px;">Tưới nước cho cây để mở khóa từng mốc kỷ niệm đáng nhớ của hai đứa nhé!</p>
+            
+            <div class="tree-container">
+                <div class="tree-display" id="love-tree">🌱</div>
+                
+                <div class="memory-milestones">
+                    <div class="milestone-item" id="ms-1">
+                        🌸 <strong>09/09/2025:</strong> Ngày đầu yêu nhau ❤️
+                    </div>
+                    <div class="milestone-item" id="ms-2">
+                        📸 <strong>14/10/2025:</strong> Lần đầu chụp photobooth cùng nhau 🎞️
+                    </div>
+                    <div class="milestone-item" id="ms-3">
+                        💋 <strong>07/12/2025:</strong> First kiss 💖
+                    </div>
+                    <div class="milestone-item" id="ms-4">
+                        ✨ <strong>15/08/2026:</strong> Lần đầu có bộ ảnh riêng cùng nhau 📷
+                    </div>
+                </div>
+
+                <button class="water-btn" id="water-tree-btn" onclick="waterTree()">Tưới Nước 💧</button>
+            </div>
+        </div>
+
+        <!-- MINIGAME MỚI 2: CỜ CARO TÌNH YÊU (TIC-TAC-TOE) -->
+        <div class="game-card">
+            <h2 class="section-title" style="margin-top:0;">❌⭕ Cờ Caro Tình Yêu</h2>
+            <p style="color: #bbb; font-size: 0.9rem; margin-bottom: 15px;">Luật vui: Người thắng được bắt người thua làm 1 yêu cầu nhỏ (như pha trà sữa, đấm lưng 5 phút)!</p>
+
+            <div class="ttt-mode-select">
+                <button class="ttt-mode-btn active" id="mode-2p" onclick="setTTTMode('2p')">👥 2 Người (Chung Màn Hình)</button>
+                <button class="ttt-mode-btn" id="mode-ai" onclick="setTTTMode('ai')">🤖 Chơi với Bot (Siêu Khó)</button>
+            </div>
+
+            <div class="ttt-status" id="ttt-status">Lượt đi: Hải Linh (👑 🐰)</div>
+
+            <div class="ttt-board" id="ttt-board">
+                <div class="ttt-cell" onclick="handleTTTClick(0)"></div>
+                <div class="ttt-cell" onclick="handleTTTClick(1)"></div>
+                <div class="ttt-cell" onclick="handleTTTClick(2)"></div>
+                <div class="ttt-cell" onclick="handleTTTClick(3)"></div>
+                <div class="ttt-cell" onclick="handleTTTClick(4)"></div>
+                <div class="ttt-cell" onclick="handleTTTClick(5)"></div>
+                <div class="ttt-cell" onclick="handleTTTClick(6)"></div>
+                <div class="ttt-cell" onclick="handleTTTClick(7)"></div>
+                <div class="ttt-cell" onclick="handleTTTClick(8)"></div>
+            </div>
+
+            <button class="reset-ttt-btn" onclick="resetTTTGame()">Chơi Ván Mới 🔄</button>
         </div>
 
         <!-- MINIGAME 2: Vòng quay Hẹn Hò -->
@@ -756,7 +959,6 @@
         document.getElementById('hug-count').innerText = hugCount;
         document.getElementById('kiss-count').innerText = kissCount;
 
-        // Âm thanh dễ thương không cần file MP3 bên ngoài (dùng Web Audio API)
         function playCuteSound(type) {
             try {
                 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -780,9 +982,7 @@
                 
                 osc.start();
                 osc.stop(audioCtx.currentTime + 0.15);
-            } catch (e) {
-                // Tự động bỏ qua nếu trình duyệt chặn tự phát âm thanh
-            }
+            } catch (e) {}
         }
 
         function sendLove(type, event) {
@@ -798,7 +998,6 @@
                 document.getElementById('kiss-count').innerText = kissCount;
             }
 
-            // Tạo hiệu ứng bong bóng bay lên từ vị trí nhấn chuột
             const icons = type === 'hug' ? ['🤗', '💖', '🫂', '✨'] : ['💋', '😘', '❤️', '💕'];
             const x = event.clientX || window.innerWidth / 2;
             const y = event.clientY || window.innerHeight / 2;
@@ -821,6 +1020,157 @@
                 setTimeout(() => {
                     heart.remove();
                 }, 2000);
+            }
+        }
+
+        // --- CODE MINIGAME MỚI 1: CÂY TÌNH YÊU ---
+        let treeLevel = 0;
+        const treeStages = ['🌱', '🌿', '🪴', '🌳', '🌸🌳✨'];
+
+        function waterTree() {
+            if (treeLevel < 4) {
+                treeLevel++;
+                playCuteSound('hug');
+                
+                const treeEl = document.getElementById('love-tree');
+                treeEl.innerText = treeStages[treeLevel];
+
+                const msEl = document.getElementById(`ms-${treeLevel}`);
+                if (msEl) msEl.classList.add('active');
+
+                if (treeLevel === 4) {
+                    treeEl.classList.add('blooming');
+                    document.getElementById('water-tree-btn').innerText = "Cây Đã Nở Hoa Rực Rỡ! ❤️";
+                    document.getElementById('water-tree-btn').disabled = true;
+                    document.getElementById('water-tree-btn').style.background = "#555";
+                }
+            }
+        }
+
+        // --- CODE MINIGAME MỚI 2: CỜ CARO TÌNH YÊU (TIC-TAC-TOE) ---
+        let tttBoard = ['', '', '', '', '', '', '', '', ''];
+        let tttCurrentPlayer = 'X'; // X: Hải Linh (👑🐰), O: Minh Tân / AI (👑🦊)
+        let tttMode = '2p'; // '2p' hoặc 'ai'
+        let tttActive = true;
+
+        const p1Symbol = '🐰';
+        const p2Symbol = '🦊';
+
+        function setTTTMode(mode) {
+            tttMode = mode;
+            document.getElementById('mode-2p').classList.toggle('active', mode === '2p');
+            document.getElementById('mode-ai').classList.toggle('active', mode === 'ai');
+            resetTTTGame();
+        }
+
+        function handleTTTClick(index) {
+            if (tttBoard[index] !== '' || !tttActive) return;
+
+            tttBoard[index] = tttCurrentPlayer;
+            updateTTTBoard();
+
+            if (checkTTTWinner(tttBoard, tttCurrentPlayer)) {
+                let winnerText = tttCurrentPlayer === 'X' ? "Hải Linh (👑 🐰) đã Thắng! 🎉" : (tttMode === 'ai' ? "AI đã Thắng! 🤖" : "Minh Tân (👑 🦊) đã Thắng! 🎉");
+                document.getElementById('ttt-status').innerText = winnerText + " Thực hiện yêu cầu ngay nào!";
+                tttActive = false;
+                playCuteSound('kiss');
+                return;
+            }
+
+            if (tttBoard.every(cell => cell !== '')) {
+                document.getElementById('ttt-status').innerText = "Hòa rồi! Cả 2 cùng làm trà sữa cho nhau nhé 🧋";
+                tttActive = false;
+                return;
+            }
+
+            tttCurrentPlayer = tttCurrentPlayer === 'X' ? 'O' : 'X';
+
+            if (tttMode === 'ai' && tttCurrentPlayer === 'O' && tttActive) {
+                document.getElementById('ttt-status').innerText = "Bot AI đang suy nghĩ...";
+                setTimeout(makeAIMove, 400);
+            } else {
+                updateTTTStatusText();
+            }
+        }
+
+        function updateTTTStatusText() {
+            let name = tttCurrentPlayer === 'X' ? "Hải Linh (👑 🐰)" : "Minh Tân (👑 🦊)";
+            document.getElementById('ttt-status').innerText = `Lượt đi: ${name}`;
+        }
+
+        function updateTTTBoard() {
+            const cells = document.querySelectorAll('.ttt-cell');
+            cells.forEach((cell, i) => {
+                if (tttBoard[i] === 'X') cell.innerText = p1Symbol;
+                else if (tttBoard[i] === 'O') cell.innerText = p2Symbol;
+                else cell.innerText = '';
+            });
+        }
+
+        function resetTTTGame() {
+            tttBoard = ['', '', '', '', '', '', '', '', ''];
+            tttCurrentPlayer = 'X';
+            tttActive = true;
+            updateTTTBoard();
+            updateTTTStatusText();
+        }
+
+        function checkTTTWinner(board, player) {
+            const winPatterns = [
+                [0,1,2], [3,4,5], [6,7,8],
+                [0,3,6], [1,4,7], [2,5,8],
+                [0,4,8], [2,4,6]
+            ];
+            return winPatterns.some(pattern => pattern.every(idx => board[idx] === player));
+        }
+
+        // THUẬT TOÁN MINIMAX CHO BOT AI KHÓ
+        function makeAIMove() {
+            let bestScore = -Infinity;
+            let move;
+            for (let i = 0; i < 9; i++) {
+                if (tttBoard[i] === '') {
+                    tttBoard[i] = 'O';
+                    let score = minimax(tttBoard, 0, false);
+                    tttBoard[i] = '';
+                    if (score > bestScore) {
+                        bestScore = score;
+                        move = i;
+                    }
+                }
+            }
+            if (move !== undefined) {
+                handleTTTClick(move);
+            }
+        }
+
+        function minimax(board, depth, isMaximizing) {
+            if (checkTTTWinner(board, 'O')) return 10 - depth;
+            if (checkTTTWinner(board, 'X')) return depth - 10;
+            if (board.every(c => c !== '')) return 0;
+
+            if (isMaximizing) {
+                let bestScore = -Infinity;
+                for (let i = 0; i < 9; i++) {
+                    if (board[i] === '') {
+                        board[i] = 'O';
+                        let score = minimax(board, depth + 1, false);
+                        board[i] = '';
+                        bestScore = Math.max(score, bestScore);
+                    }
+                }
+                return bestScore;
+            } else {
+                let bestScore = Infinity;
+                for (let i = 0; i < 9; i++) {
+                    if (board[i] === '') {
+                        board[i] = 'X';
+                        let score = minimax(board, depth + 1, true);
+                        board[i] = '';
+                        bestScore = Math.min(score, bestScore);
+                    }
+                }
+                return bestScore;
             }
         }
 
@@ -849,7 +1199,6 @@
                 ctx.lineTo(centerX, centerY);
                 ctx.fill();
 
-                // Vẽ Chữ
                 ctx.save();
                 ctx.translate(centerX, centerY);
                 ctx.rotate(angle + arcSize / 2);
@@ -874,7 +1223,6 @@
             spinBtn.disabled = true;
             resultDiv.innerText = "Đang chọn món ngon cho 2 đứa...";
 
-            // Quay ngẫu nhiên từ 5 đến 10 vòng
             const extraRounds = 5 + Math.floor(Math.random() * 5);
             const randomDegrees = Math.floor(Math.random() * 360);
             const totalDegrees = extraRounds * 360 + randomDegrees;
@@ -886,7 +1234,6 @@
                 isSpinning = false;
                 spinBtn.disabled = false;
 
-                // Tính toán phần thưởng dừng ở mũi tên đỉnh trên cùng (270 độ)
                 const actualDegrees = currentRotation % 360;
                 const effectiveAngle = (360 - (actualDegrees % 360) + 270) % 360;
                 const selectedIndex = Math.floor(effectiveAngle / (360 / numOptions));
@@ -902,58 +1249,54 @@
             { id: 2, title: "🎫 Thẻ Bao Ăn Một Bữa Tùy Chọn", desc: "Đối phương sẽ chiêu đãi 1 bữa ăn ngon lành ở bất cứ quán nào bạn muốn!" },
             { id: 3, title: "🎫 Thẻ Bắt Đối Phương Massage 15 Phút", desc: "Quyền lợi được xoa bóp, đấm lưng thư giãn bất kỳ lúc nào cảm thấy mệt mỏi." },
             { id: 4, title: "🎫 Thẻ \"Anh/Em Luôn Đúng\"", desc: "Vũ khí tối thượng! Mãi mãi có hiệu lực giúp bạn thắng ngay lập tức trong cuộc tranh luận!" },
-            { id: 5, title: "🎟️ Thẻ Miễn Phạt Khi Làm Hỏng/Làm Sai Trò Chơi", desc: "Áp dụng khi chơi game cùng nhau mà bị thua hoặc lỡ làm sai quy tắc." },
-            { id: 6, title: "🎫 Thẻ Gọi Ship 1 Ly Trà Sữa / Đồ Ăn Đêm Tức Thì", desc: "Không cần lý do, chỉ cần phát lệnh là trà sữa/đồ ăn sẽ có mặt ngay!" },
-            { id: 7, title: "🎫 Thẻ Đã Thông Qua: Chọn Phim Đi Xem", desc: "Quyền tự chọn bộ phim chiếu rạp cho lần hẹn hò tiếp theo (Không cần thương lượng!)." },
-            { id: 8, title: "🎟️ Thẻ \"Tha Lỗi 100%\"", desc: "Áp dụng cho 1 lần lỡ đi trễ hoặc quên hẹn. Có giá trị miễn trừ mọi hình phạt!" },
-            { id: 9, title: "🎫 Thẻ Đưa Đón Tận Nơi + Ôm Miễn Phí 5 Phút", desc: "Bất kể thời tiết hay khoảng cách, người ấy sẽ đến đón và trao ôm ấm áp!" },
-            { id: 10, title: "🎟️ Thẻ Đặt Hàng Đan / Làm Quà Thủ Công", desc: "Yêu cầu người ấy đan hoặc làm thêm một món đồ handmade dễ thương (như chiếc túi xinh)." },
-            // 6 THẺ MỚI SÁNG TẠO THÊM
-            { id: 11, title: "🎟️ Thẻ Dừng Cuộc Tranh Luận Tức Thời", desc: "Khi tình hình bắt đầu căng thẳng, rút thẻ này ra thì cả hai bắt buộc phải ôm nhau 1 phút và hòa giải!" },
-            { id: 12, title: "🎫 Thẻ Quyền Lực: Thêm 1 Lần Quay Vòng Quay Hẹn Hò", desc: "Nếu không thích món ăn vừa quay trúng, thẻ này cho phép bạn bắt vòng quay hoạt động lại ngay!" },
-            { id: 13, title: "🎟️ Thẻ Order 1 Chuyến Đi Dạo Đêm", desc: "Được yêu cầu một buổi lượn xe hóng gió Hồ Tây / Phố Cổ đêm lãng mạn bất cứ lúc nào." },
-            { id: 14, title: "🎫 Thẻ Miễn Làm Việc Nhà / Thu Dọn 1 Ngày", desc: "Trong 1 ngày, đối phương sẽ là người chịu trách nhiệm thu dọn & sắp xếp đồ đạc giúp bạn!" },
-            { id: 15, title: "🎟️ Thẻ Chụp 1 Bộ Ảnh Photobooth Tự Chọn Concept", desc: "Được toàn quyền quyết định phông nền, dáng chụp và phụ kiện cho lần đi chụp photobooth tiếp theo!" },
-            { id: 16, title: "🎫 Thẻ Đổi 1 Yêu Cầu Bất Kỳ", desc: "Một ước nguyện đặc biệt! Bạn có thể đưa ra 1 yêu cầu hợp lý và người ấy bắt buộc phải thực hiện trong 24h." }
+            { id: 5, title: "🎟️ Thẻ Miễn Phạt Khi Làm Hỏng/Làm Sai Trò Chơi", desc: "Áp dụng khi chơi game thua hoặc lỡ quên nhiệm vụ nhỏ." },
+            { id: 6, title: "🎫 Thẻ Đồ Uống Tự Chọn", desc: "Đổi lấy 1 cốc Trà Sữa / Cà phê tùy chọn do đối phương mua tặng!" },
+            { id: 7, title: "🎟️ Thẻ Ôm Thật Cặt 1 Phút", desc: "Được yêu cầu 1 cái ôm thật ấm áp ngay lập tức." },
+            { id: 8, title: "🎫 Thẻ Đi Xem Phim Tự Chọn", desc: "Được quyền chọn bộ phim và suất chiếu cho buổi hẹn hò tiếp theo!" },
+            { id: 9, title: "🎟️ Thẻ Đố Vui Nhận Quà", desc: "Đố đối phương 1 câu, trả lời đúng được tặng thêm 1 nụ hôn!" },
+            { id: 10, title: "🎫 Thẻ Nấu Ăn Theo Yêu Cầu", desc: "Đối phương sẽ vào bếp nấu một món ăn mà bạn thích nhất." },
+            { id: 11, title: "🎟️ Thẻ Chụp 10 Kiểu Ảnh Dễ Thương", desc: "Bắt đối phương chụp cùng 10 kiểu ảnh selfie nhí nhố." },
+            { id: 12, title: "🎫 Thẻ Đi Dạo Đêm Bằng Xe Máy", desc: "Một buổi lượn phố đêm hít thở không khí chill chill." },
+            { id: 13, title: "🎟️ Thẻ Hát Tặng 1 Bài Hát", desc: "Đối phương phải hát tặng bạn 1 bài hát bạn chọn." },
+            { id: 14, title: "🎫 Thẻ Thức Đêm Tâm Sự", desc: "Đặc quyền thức muộn nhắn tin/call video tâm sự trên trời dưới đất." },
+            { id: 15, title: "🎟️ Thẻ Nụ Hôn Lên Trán", desc: "Nhận một nụ hôn lên trán cực kỳ dịu dàng và cưng chiều." },
+            { id: 16, title: "🎫 Thẻ Thực Hiện 1 Điều Ước Bất Kỳ", desc: "Tấm thẻ quyền lực nhất! Được ước 1 điều ước thực tế bất kỳ." }
         ];
 
-        let openedCoupons = JSON.parse(localStorage.getItem('openedCoupons') || '[]');
+        let openedBoxes = JSON.parse(localStorage.getItem('openedBoxes') || '[]');
 
         function renderGiftBoxes() {
             const grid = document.getElementById('gift-boxes-grid');
             grid.innerHTML = '';
 
             loveCoupons.forEach((coupon, index) => {
-                const isOpened = openedCoupons.includes(coupon.id);
                 const box = document.createElement('div');
+                const isOpened = openedBoxes.includes(coupon.id);
                 box.className = `gift-box-item ${isOpened ? 'opened' : ''}`;
+                box.onclick = () => openGiftBox(coupon.id);
+
                 box.innerHTML = `
                     <span class="box-icon">${isOpened ? '🔓' : '🎁'}</span>
-                    <span class="box-num">Hộp quà #${index + 1}</span>
+                    <span class="box-num">Hộp số ${index + 1}</span>
                 `;
-                box.onclick = () => openGiftBox(coupon, box);
                 grid.appendChild(box);
             });
         }
 
-        function openGiftBox(coupon, boxElement) {
-            playCuteSound('kiss');
-            
-            if (!openedCoupons.includes(coupon.id)) {
-                openedCoupons.push(coupon.id);
-                localStorage.setItem('openedCoupons', JSON.stringify(openedCoupons));
-                boxElement.classList.add('opened');
-                boxElement.querySelector('.box-icon').innerText = '🔓';
+        function openGiftBox(id) {
+            const coupon = loveCoupons.find(c => c.id === id);
+            if (!coupon) return;
+
+            if (!openedBoxes.includes(id)) {
+                openedBoxes.push(id);
+                localStorage.setItem('openedBoxes', JSON.stringify(openedBoxes));
+                renderGiftBoxes();
             }
 
-            document.getElementById('modal-coupon-tag').innerText = `🎟️ THẺ ĐẶC QUYỀN #${coupon.id}`;
             document.getElementById('modal-coupon-title').innerText = coupon.title;
             document.getElementById('modal-coupon-desc').innerText = coupon.desc;
-            
             document.getElementById('coupon-modal').classList.add('active');
-
-            // Tạo pháo hoa trái tim nhỏ ăn mừng
-            sendLove('hug', { clientX: window.innerWidth / 2, clientY: window.innerHeight / 2 });
+            playCuteSound('kiss');
         }
 
         function closeCouponModal() {
@@ -961,25 +1304,25 @@
         }
 
         function showOpenedCouponsModal() {
-            const list = document.getElementById('wallet-list');
-            list.innerHTML = '';
+            const walletList = document.getElementById('wallet-list');
+            walletList.innerHTML = '';
 
-            if (openedCoupons.length === 0) {
-                list.innerHTML = '<p style="text-align:center; color:#aaa;">Bạn chưa mở hộp quà nào cả. Hãy bấm mở hộp quà phía trên nhé!</p>';
+            if (openedBoxes.length === 0) {
+                walletList.innerHTML = '<p style="color: #aaa; text-align: center;">Bạn chưa mở hộp quà nào cả. Hãy mở các hộp quà ở trên nhé!</p>';
             } else {
-                loveCoupons.forEach(coupon => {
-                    if (openedCoupons.includes(coupon.id)) {
+                openedBoxes.forEach(id => {
+                    const coupon = loveCoupons.find(c => c.id === id);
+                    if (coupon) {
                         const item = document.createElement('div');
-                        item.style.cssText = "background: rgba(255,255,255,0.08); padding: 12px; border-radius: 12px; margin-bottom: 10px; border-left: 4px solid #ff4d6d;";
+                        item.style.cssText = 'background: rgba(255,255,255,0.08); padding: 12px; border-radius: 12px; margin-bottom: 10px; border: 1px solid rgba(255,133,162,0.3);';
                         item.innerHTML = `
-                            <strong style="color: #ff85a2; display:block; margin-bottom: 4px;">${coupon.title}</strong>
-                            <span style="font-size: 0.85rem; color: #ddd;">${coupon.desc}</span>
+                            <div style="font-weight: 700; color: #ff85a2; margin-bottom: 4px;">${coupon.title}</div>
+                            <div style="font-size: 0.85rem; color: #ccc;">${coupon.desc}</div>
                         `;
-                        list.appendChild(item);
+                        walletList.appendChild(item);
                     }
                 });
             }
-
             document.getElementById('wallet-modal').classList.add('active');
         }
 
@@ -991,49 +1334,39 @@
 
         // --- CODE MINIGAME 4: BẮN TIM TÍCH ĐIỂM (LOVE CATCHER) ---
         const catcherCanvas = document.getElementById('catcher-canvas');
-        const cCtx = catcherCanvas.getContext('2d');
+        const catcherCtx = catcherCanvas.getContext('2d');
         
         let catcherScore = 0;
         let isCatcherRunning = false;
-        let animationId = null;
+        let catcherAnimId = null;
 
-        // Giỏ hứng (Nick & Judy)
         const basket = {
-            x: 170,
-            y: 340,
+            x: catcherCanvas.width / 2 - 35,
+            y: catcherCanvas.height - 45,
             width: 70,
-            height: 40,
+            height: 35,
             speed: 7
         };
 
         let items = [];
-        const itemIcons = ['❤️', '💖', '🦊', '🐰', '⭐', '💋'];
-
         let keys = {};
 
-        window.addEventListener('keydown', e => keys[e.code] = true);
-        window.addEventListener('keyup', e => keys[e.code] = false);
+        window.addEventListener('keydown', e => keys[e.key] = true);
+        window.addEventListener('keyup', e => keys[e.key] = false);
 
-        // Hỗ trợ cảm ứng điện thoại & vuốt chuột
+        // Hỗ trợ cảm ứng trên điện thoại
         catcherCanvas.addEventListener('touchmove', e => {
             const rect = catcherCanvas.getBoundingClientRect();
             const touchX = e.touches[0].clientX - rect.left;
-            basket.x = Math.max(0, Math.min(catcherCanvas.width - basket.width, touchX - basket.width / 2));
-        });
-
-        catcherCanvas.addEventListener('mousemove', e => {
-            if (!isCatcherRunning) return;
-            const rect = catcherCanvas.getBoundingClientRect();
-            const mouseX = e.clientX - rect.left;
-            basket.x = Math.max(0, Math.min(catcherCanvas.width - basket.width, mouseX - basket.width / 2));
+            basket.x = touchX - basket.width / 2;
         });
 
         function toggleCatcherGame() {
             const btn = document.getElementById('start-catcher-btn');
             if (isCatcherRunning) {
                 isCatcherRunning = false;
-                cancelAnimationFrame(animationId);
-                btn.innerText = "Chơi Tiếp 🚀";
+                cancelAnimationFrame(catcherAnimId);
+                btn.innerText = "Tiếp Tục Chơi 🚀";
             } else {
                 isCatcherRunning = true;
                 btn.innerText = "Tạm Dừng ⏸";
@@ -1042,13 +1375,21 @@
         }
 
         function spawnItem() {
-            if (Math.random() < 0.05) {
+            if (Math.random() < 0.04) {
+                const types = [
+                    { symbol: '❤️', score: 10 },
+                    { symbol: '💖', score: 15 },
+                    { symbol: '💌', score: 20 },
+                    { symbol: '🧋', score: 25 },
+                    { symbol: '💣', score: -15 }
+                ];
+                const selected = types[Math.floor(Math.random() * types.length)];
                 items.push({
                     x: Math.random() * (catcherCanvas.width - 30),
-                    y: -20,
+                    y: -30,
                     size: 26,
-                    speed: 2.5 + Math.random() * 2.5,
-                    icon: itemIcons[Math.floor(Math.random() * itemIcons.length)]
+                    speed: 2 + Math.random() * 2.5,
+                    ...selected
                 });
             }
         }
@@ -1056,206 +1397,129 @@
         function gameLoop() {
             if (!isCatcherRunning) return;
 
-            cCtx.clearRect(0, 0, catcherCanvas.width, catcherCanvas.height);
+            catcherCtx.clearRect(0, 0, catcherCanvas.width, catcherCanvas.height);
 
-            // Cập nhật vị trí giỏ bằng phím
-            if (keys['ArrowLeft'] && basket.x > 0) basket.x -= basket.speed;
-            if (keys['ArrowRight'] && basket.x < catcherCanvas.width - basket.width) basket.x += basket.speed;
+            // Di chuyển giỏ
+            if ((keys['ArrowLeft'] || keys['a']) && basket.x > 0) basket.x -= basket.speed;
+            if ((keys['ArrowRight'] || keys['d']) && basket.x < catcherCanvas.width - basket.width) basket.x += basket.speed;
 
-            // Vẽ Giỏ Nick & Judy
-            cCtx.fillStyle = 'rgba(255, 117, 140, 0.3)';
-            cCtx.strokeStyle = '#ff758c';
-            cCtx.lineWidth = 2;
-            cCtx.beginPath();
-            cCtx.roundRect(basket.x, basket.y, basket.width, basket.height, 12);
-            cCtx.fill();
-            cCtx.stroke();
+            // Giới hạn biên
+            if (basket.x < 0) basket.x = 0;
+            if (basket.x > catcherCanvas.width - basket.width) basket.x = catcherCanvas.width - basket.width;
 
-            cCtx.font = '22px Arial';
-            cCtx.textAlign = 'center';
-            cCtx.fillText('🦊🐰', basket.x + basket.width / 2, basket.y + 27);
+            // Vẽ giỏ Nick & Judy
+            catcherCtx.fillStyle = 'rgba(255, 117, 140, 0.3)';
+            catcherCtx.strokeStyle = '#ff758c';
+            catcherCtx.lineWidth = 2;
+            catcherCtx.beginPath();
+            catcherCtx.roundRect(basket.x, basket.y, basket.width, basket.height, 10);
+            catcherCtx.fill();
+            catcherCtx.stroke();
 
-            // Tạo & Cập nhật Items
+            catcherCtx.font = '20px sans-serif';
+            catcherCtx.textAlign = 'center';
+            catcherCtx.fillText('🦊🐰', basket.x + basket.width / 2, basket.y + 24);
+
+            // Quản lý items
             spawnItem();
 
             for (let i = items.length - 1; i >= 0; i--) {
                 const item = items[i];
                 item.y += item.speed;
 
-                // Vẽ Item
-                cCtx.font = `${item.size}px Arial`;
-                cCtx.fillText(item.icon, item.x + 15, item.y + 20);
+                catcherCtx.font = `${item.size}px sans-serif`;
+                catcherCtx.fillText(item.symbol, item.x, item.y);
 
-                // Va chạm với giỏ
+                // Va chạm
                 if (
-                    item.y + item.size >= basket.y &&
-                    item.x + item.size >= basket.x &&
-                    item.x <= basket.x + basket.width
+                    item.y >= basket.y &&
+                    item.y <= basket.y + basket.height &&
+                    item.x >= basket.x - 10 &&
+                    item.x <= basket.x + basket.width + 10
                 ) {
-                    catcherScore += 10;
+                    catcherScore += item.score;
+                    if (catcherScore < 0) catcherScore = 0;
                     document.getElementById('catcher-score').innerText = catcherScore;
-                    playCuteSound('hug');
+
+                    playCuteSound(item.score > 0 ? 'hug' : 'kiss');
                     items.splice(i, 1);
 
-                    // Khi đạt 100 điểm - Tặng quà!
+                    // Đạt 100 điểm thưởng Thẻ Đặc Quyền
                     if (catcherScore >= 100) {
                         isCatcherRunning = false;
-                        document.getElementById('start-catcher-btn').innerText = "Chơi Lại 🔄";
+                        document.getElementById('start-catcher-btn').innerText = "Thắng Rồi! 🎉";
+                        
+                        // Tặng ngẫu nhiên 1 thẻ
+                        const unopen = loveCoupons.filter(c => !openedBoxes.includes(c.id));
+                        const reward = unopen.length > 0 ? unopen[0] : loveCoupons[0];
+                        
+                        openGiftBox(reward.id);
                         catcherScore = 0;
-                        document.getElementById('catcher-score').innerText = '100 (Thắng!)';
-
-                        // Chọn ngẫu nhiên 1 thẻ chưa mở hoặc ngẫu nhiên
-                        const unOpened = loveCoupons.filter(c => !openedCoupons.includes(c.id));
-                        const targetCoupon = unOpened.length > 0 
-                            ? unOpened[Math.floor(Math.random() * unOpened.length)]
-                            : loveCoupons[Math.floor(Math.random() * loveCoupons.length)];
-
-                        setTimeout(() => {
-                            alert("🎉 Chúc mừng bạn đã xuất sắc đạt 100 điểm! Một Hộp Quà Đặc Quyền được mở khóa!");
-                            openGiftBox(targetCoupon, document.querySelectorAll('.gift-box-item')[targetCoupon.id - 1]);
-                        }, 200);
-                        return;
+                        document.getElementById('catcher-score').innerText = 0;
+                        break;
                     }
-                } else if (item.y > catcherCanvas.height) {
+                } else if (item.y > catcherCanvas.height + 30) {
                     items.splice(i, 1);
                 }
             }
 
-            animationId = requestAnimationFrame(gameLoop);
+            catcherAnimId = requestAnimationFrame(gameLoop);
         }
 
-        // 4. Dữ liệu Ảnh theo từng Tháng 
-        const monthsData = [
-            { id: '09-2025', label: 'Tháng 09/2025', images: [
-                { url: '9-2025_1.jpg', note: 'Lần đầu nắm tay là ngày tỏ tình' },
-                { url: '9-2025_4.jpg', note: 'Quán nước tỏ tình giờ đã đóng cửa ' },
-                { url: '9-2025_3.jpg', note: 'Đón em tan học' },
-                { url: '9-2025_2.jpg', note: 'Mới yêu đã xa em 2 tuần' }
-            ]},
-            { id: '10-2025', label: 'Tháng 10/2025', images: [
-                { url: '10-2025_1.jpg', note: 'Đưa em nhẫn và bé Elise' },
-                { url: '10-2025_2.jpg', note: 'Photobooth đầu tiên sau khi em thi xong' },
-                { url: '10-2025_3.jpg', note: 'Lần chụp ảnh áo đôi đầu tiên của tụi mình' },
-                { url: '10-2025_4.jpg', note: 'Bánh tira em tự làm nè' },
-                { url: '10-2025_5.jpg', note: 'Photo rain nè' },
-                { url: '10-2025_6.jpg', note: 'Lần đầu đón thu Hà Nội cùng nhau' },
-                { url: '10-2025_7.jpg', note: 'Ngắm tàu hỏa chạy ở quán coffee' },
-                { url: '10-2025_8.jpg', note: '25/10/2025 iu ' }
-            ]},
-            { id: '11-2025', label: 'Tháng 11/2025', images: [
-                { url: '11-2025_1.jpg', note: 'Lần đầu em ăn pizza mật ong' },
-                { url: '11-2025_2.jpg', note: 'Đi Royal City cùng nhau nè' },
-                { url: '11-2025_3.jpg', note: 'Trò này em chơi dở quá toàn làm sai' },
-                { url: '11-2025_4.jpg', note: 'Người màu mè như em cũng thích ảnh đen trắng' },
-                { url: '11-2025_5.jpg', note: 'Anni 2 tháng của chúng mình' },
-                { url: '11-2025_6.jpg', note: '8/11/2025 iuuuu' },
-                { url: '11-2025_7.jpg', note: 'Lần đầu em cầm máy ảnh của anh' },
-                { url: '11-2025_8.jpg', note: 'Hehee đẹp đôi quá' },
-                { url: '11-2025_9.jpg', note: 'Yêu anh nhìuuu' }
-            ]},
-            { id: '12-2025', label: 'Tháng 12/2025', images: [
-                { url: '12-2025_1.jpg', note: 'Chụp ptb Nick & Judy nè' },
-                { url: '12-2025_2.jpg', note: 'Rùi đi xem phim Zootopia 2' },
-                { url: '12-2025_3.jpg', note: 'Anh tổ chức sinh nhật cho em nè' },
-                { url: '12-2025_4.jpg', note: '13/12/2025 đi dạo ở Aeon Xuân Thủy' },
-                { url: '12-2025_5.jpg', note: 'Ptb ở Lotte Tây Hồ nè, anh mặc áo em mua hehe' }
-            ]},
-            { id: '01-2026', label: 'Tháng 01/2026', images: [
-                { url: '1-2026_1.jpg', note: 'Photo pallete ngay gần nhà em nè' },
-                { url: '1-2026_2.jpg', note: 'Đón năm mới cùng nhau ở công viên Nghĩa Đô' },
-                { url: '1-2026_3.jpg', note: 'Anh kéo sao về...' },
-                { url: '1-2026_4.jpg', note: 'Ptb em không phục thù thành công huhu' },
-                { url: '1-2026_5.jpg', note: 'Mình đi làm ốp đôi đầu tiên' },
-                { url: '1-2026_6.jpg', note: 'Anh thấy áo đôi Nick & Judy của mình hem' }
-            ]},
-            { id: '02-2026', label: 'Tháng 02/2026', images: [
-                { url: '2-2026_1.jpg', note: 'Mối tình đầu xuân ai thấu chăng~' },
-                { url: '2-2026_2.jpg', note: 'Đi ăn sớm nhân dịp Valentine' },
-                { url: '2-2026_3.jpg', note: 'Không biết ở đây có bao nhiêu bông hoa nhỉ' },
-                { url: '2-2026_4.jpg', note: 'Mình chụp ptb vlt sớm tận 2 tuần đấy' },
-                { url: '2-2026_5.jpg', note: 'Đẹp đôi quá moah moah' }
-            ]},
-            { id: '03-2026', label: 'Tháng 03/2026', images: [
-                { url: '3-2026_1.jpg', note: 'Lần đầu em đến Học viện Cảnh sát' },
-                { url: '3-2026_2.jpg', note: 'Để tổ chức sinh nhật cho anh' },
-                { url: '3-2026_3.jpg', note: '14/03/26 của tụi mình vì sinh nhật anh là ngày bầu cử' },
-                { url: '3-2026_4.jpg', note: 'Quà vlt của em nèeee' },
-                { url: '3-2026_5.jpg', note: 'Anh đồng hành cùng em qua các mùa thi' }
-            ]},
-            { id: '04-2026', label: 'Tháng 04/2026', images: [
-                { url: '4-2026_1.jpg', note: 'Mình ngồi nghỉ sau khi đi dạo Hồ Gươm với nhau' },
-                { url: '4-2026_2.jpg', note: 'Chụt chụt' },
-                { url: '4-2026_3.jpg', note: 'Ptb 05/04/2026' },
-                { url: '4-2026_4.jpg', note: 'Yêu yêuu quá' },
-                { url: '4-2026_5.jpg', note: 'Hôm ấy mình đi chụp 2 ptb với 3 phông nền lun' },
-                { url: '4-2026_6.jpg', note: 'Anh nhớ nhường em nhéee' }
-            ]},
-            { id: '05-2026', label: 'Tháng 05/2026', images: [
-                { url: '5-2026_1.jpg', note: 'Em đeo vòng anh mua từ Nha Trang nè' },
-                { url: '5-2026_2.jpg', note: 'Có hai bé iu iu ở đây' },
-                { url: '5-2026_3.jpg', note: 'Ptb thật cute khi cho mình chụp lại ảnh lỗi' },
-                { url: '5-2026_4.jpg', note: 'Mình mặc đồ đôi' },
-                { url: '5-2026_5.jpg', note: 'Để đi anni 8 tháng cùng nhau' },
-                { url: '5-2026_6.jpg', note: 'Em thích cháo canh anh mang ra lắm' },
-                { url: '5-2026_7.jpg', note: 'Anh siêu khéo tay, anh đan túi cho em nè' }
-            ]},
-            { id: '06-2026', label: 'Tháng 06/2026', images: [
-                { url: '6-2026_1.jpg', note: 'Em thích ptb này nhất lun' },
-                { url: '6-2026_2.jpg', note: 'Thích chọt má lúm của anh nữa' },
-                { url: '6-2026_3.jpg', note: 'Yêu quá điiii' },
-                { url: '6-2026_4.jpg', note: 'Chụt chụt người đang xem ảnh' },
-                { url: '6-2026_5.jpg', note: 'Hehee em chơi trò giải đố anh tự làm' }
-            ]},
-            { id: '07-2026', label: 'Tháng 07/2026', images: [
-                { url: '7-2026_1.jpg', note: '300 days của chúng mình' },
-                { url: '7-2026_2.jpg', note: '3/7/26, em dẫn anh lần đầu ăn A Choén' },
-                { url: '7-2026_3.jpg', note: 'Anh dạy em văn hóa uống bia' },
-                { url: '7-2026_4.jpg', note: 'Công chúa của ai đấy' }
-            ]},
-            { id: '08-2026', label: 'Tháng 08/2026', images: [
-                { url: '8-2026_1.jpg', note: 'Đón bé Pi anh có từ lúc hiến máu' },
-                { url: '8-2026_2.jpg', note: 'Mình đi chụp anni 1 năm nè' },
-                { url: '8-2026_3.jpg', note: 'Công viên Thống Nhất chụp đẹp quá em thích' },
-                { url: '8-2026_4.jpg', note: 'Sao em phun bóng lại bị bay ngược nhỉ' },
-                { url: '8-2026_5.jpg', note: 'Ảnh này dành đăng 2/9 nè' },
-                { url: '8-2026_6.jpg', note: 'Đây là em trưởng thành' },
-                { url: '8-2026_7.jpg', note: 'Đây là em dễ thương - anh bảo z' }
-            ]},
-            { id: '09-2026', label: 'Tháng 09/2026', images: [
-                { url: '9-2026_1.jpg', note: '6/9/2026, mình đi kỉ niệm 1 năm nè' },
-                { url: '9-2026_2.jpg', note: 'Lần đầu anh đi xe buýt hehe' },
-                { url: '9-2026_3.jpg', note: 'Chúng mình cùng đón thật nhiều anni cùng nhau nhé' }
-            ]}
+        // --- BỘ CHỌN ALBUM KỶ NIỆM THEO THÁNG ---
+        const albumData = [
+            { id: '2025-09', name: '09/2025', photos: [{ src: 'https://picsum.photos/300/300?random=1', caption: 'Tháng đầu bên nhau ❤️' }] },
+            { id: '2025-10', name: '10/2025', photos: [{ src: 'https://picsum.photos/300/300?random=2', caption: 'Lần đầu chụp photobooth 🎞️' }] },
+            { id: '2025-11', name: '11/2025', photos: [{ src: 'https://picsum.photos/300/300?random=3', caption: 'Những buổi tối hẹn hò ấm áp ☕' }] },
+            { id: '2025-12', name: '12/2025', photos: [{ src: 'https://picsum.photos/300/300?random=4', caption: 'First Kiss & Mùa đông ngọt ngào 🎄' }] },
+            { id: '2026-01', name: '01/2026', photos: [{ src: 'https://picsum.photos/300/300?random=5', caption: 'Chào năm mới cùng nhau 🎆' }] },
+            { id: '2026-02', name: '02/2026', photos: [{ src: 'https://picsum.photos/300/300?random=6', caption: 'Valentine đầu tiên 🍫' }] },
+            { id: '2026-03', name: '03/2026', photos: [{ src: 'https://picsum.photos/300/300?random=7', caption: 'Tháng 3 dịu dàng 🌸' }] },
+            { id: '2026-04', name: '04/2026', photos: [{ src: 'https://picsum.photos/300/300?random=8', caption: 'Những chuyến đi chơi xa 🚗' }] },
+            { id: '2026-05', name: '05/2026', photos: [{ src: 'https://picsum.photos/300/300?random=9', caption: 'Chụp ảnh ngày nắng đẹp ☀️' }] },
+            { id: '2026-06', name: '06/2026', photos: [{ src: 'https://picsum.photos/300/300?random=10', caption: 'Mùa hè rực rỡ 🌊' }] },
+            { id: '2026-07', name: '07/2026', photos: [{ src: 'https://picsum.photos/300/300?random=11', caption: 'Cùng nhau đi ăn đồ ngon 🍦' }] },
+            { id: '2026-08', name: '08/2026', photos: [{ src: 'https://picsum.photos/300/300?random=12', caption: 'Bộ ảnh riêng siêu xinh 📷' }] },
+            { id: '2026-09', name: '09/2026', photos: [{ src: 'https://picsum.photos/300/300?random=13', caption: 'Kỷ niệm tròn 1 năm yêu 💖' }] }
         ];
 
-        // Hiển thị nút bấm chọn tháng và load danh sách ảnh
-        const btnContainer = document.getElementById('month-buttons');
-        const galleryContainer = document.getElementById('gallery-container');
+        function renderMonthButtons() {
+            const btnContainer = document.getElementById('month-buttons');
+            btnContainer.innerHTML = '';
 
-        monthsData.forEach((m, index) => {
-            const btn = document.createElement('button');
-            btn.className = `month-btn ${index === 0 ? 'active' : ''}`;
-            btn.innerText = m.label;
-            btn.onclick = () => {
-                document.querySelectorAll('.month-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                renderGallery(m.images);
-            };
-            btnContainer.appendChild(btn);
-        });
-
-        function renderGallery(images) {
-            galleryContainer.innerHTML = '';
-            images.forEach(img => {
-                const item = document.createElement('div');
-                item.className = 'gallery-item';
-                item.innerHTML = `<img src="${img.url}" alt="Memory"><p>${img.note}</p>`;
-                galleryContainer.appendChild(item);
+            albumData.forEach((item, index) => {
+                const btn = document.createElement('button');
+                btn.className = `month-btn ${index === 0 ? 'active' : ''}`;
+                btn.innerText = item.name;
+                btn.onclick = () => selectMonth(item.id, btn);
+                btnContainer.appendChild(btn);
             });
+
+            selectMonth(albumData[0].id, btnContainer.children[0]);
         }
 
-        // Khởi tạo hiển thị tháng đầu tiên (09/2025)
-        renderGallery(monthsData[0].images);
+        function selectMonth(monthId, btnElement) {
+            document.querySelectorAll('.month-btn').forEach(b => b.classList.remove('active'));
+            if (btnElement) btnElement.classList.add('active');
+
+            const gallery = document.getElementById('gallery-container');
+            gallery.innerHTML = '';
+
+            const monthInfo = albumData.find(a => a.id === monthId);
+            if (monthInfo) {
+                monthInfo.photos.forEach(p => {
+                    const item = document.createElement('div');
+                    item.className = 'gallery-item';
+                    item.innerHTML = `
+                        <img src="${p.src}" alt="${p.caption}">
+                        <p>${p.caption}</p>
+                    `;
+                    gallery.appendChild(item);
+                });
+            }
+        }
+
+        renderMonthButtons();
     </script>
 </body>
 </html>
